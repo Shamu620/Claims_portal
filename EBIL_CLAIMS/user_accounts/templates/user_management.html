@@ -1,0 +1,275 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Shalom Mumo">
+    <meta name="robots" content="index, follow" >
+    <meta name="description" content="This a website for tracking Claims, right from the day of intimation to the day of payments." >
+    <meta name="keywords" content="Claims, Claim, Claim portal" >
+    <title>Admin User Management</title>
+    <link rel="icon" type="image/png" href="/static/claim_handling/shield_icon.svg" >
+    <script src="{% static 'claim_handling/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'claim_handling/dataTables.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'claim_handling/dataTables.dataTables.min.css' %}">
+    <!-- SweetAlert2 Stylesheet -->
+    <link rel="stylesheet" href="{% static 'claim_handling/sweetalert2.min.css' %}">
+    <!-- SweetAlert2 JavaScript Script -->
+    <script src="{% static 'claim_handling/sweetalert2.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'user_accounts/user_management.css' %}">
+        <script src="{% static 'user_accounts/user_management.js' %}" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Source+Sans+3:wght@400;600;700;800&display=swap"> -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  </head>
+
+  <body>
+    <div class="page">
+
+      <header class="topbar">
+        <div class="brand">EBIL Claims Portal</div>
+        <nav class="nav" aria-label="Main">
+          <div class="users-box">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#000"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="9" cy="8" r="3.5"/>
+              <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/>
+              <path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/>
+              <path d="M18 14.4c2.2.7 3.5 2.6 3.5 5.6"/>
+            </svg>
+            Users
+          </div>
+        </nav>
+        <div class="account">
+          <span class="account-role" id="header-role">{{ role }}</span>
+          <div class="avatar" id="header-avatar">{{ name_initials }}</div>
+  
+          <!-- Popover Menu -->
+          <div class="avatar-popup" id="avatar-popup">
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn-logout-popup">Logout</button>
+            </form>
+          </div>
+        </div>
+        
+      </header>
+
+      <main class="content">
+
+        <div class="title-row">
+          <div>
+            <h1>User Management</h1>
+            <div class="crumb">Admin &gt; User management</div>
+          </div>
+          <button type="button" id="add-user-btn" onclick="add_user_dialog.showModal()" class="btn-add">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#000"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Add user
+          </button>
+        </div>
+
+        <section class="cards">
+          <div class="card">
+            <div class="card-label">Total Users</div>
+            <div class="card-value" id="count-total-users">-</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Admins</div>
+            <div class="card-value" id="count-admins">-</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Sub-Admins</div>
+            <div class="card-value" id="count-subadmins">-</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>All users</h2>
+            <div class="filters">
+              <label class="sr-only" for="search-users">Search users</label>
+              <input class="filter search" id="search-users" type="search" placeholder="Search name or PF">
+              <label class="sr-only" for="role-filter">Filter by role</label>
+              <select class="filter" id="role-filter">
+                <option value="">All roles</option>
+                <option value="Admin">Admin</option>
+                <option value="Sub-Admin">Sub-Admin</option>
+              </select>
+            </div>
+          </div>
+
+
+          <table id="users-table">
+            <!-- will be populated dynammically via js -->
+          </table>
+
+        </section>
+
+      </main>
+
+      <footer class="site-footer">© 2026 EBIL Claims Portal. All rights reserved.</footer>
+    </div>
+
+
+    <dialog id="add_user_dialog">
+      <form id="add-user-form">
+
+
+        <div class="dlg-head">
+          <h2 class="dlg-title" id="dlg-title">Add user</h2>
+          <button class="dlg-close" type="button" id="dlg-x-close-btn">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="black"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M5 5l14 14M19 5L5 19"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="dlg-body">
+          <div class="dlg-row">
+            <div class="field">
+              <label for="anu-first-name">First name</label>
+              <input id="anu-first-name" type="text" data-correct-db-name="first_name" autocomplete="first name" required>
+            </div>
+            <div class="field">
+              <label for="anu-last-name">Last name</label>
+              <input id="anu-last-name" type="text" data-correct-db-name="last_name" autocomplete="last name" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="anu-email-address">Email address</label>
+            <input id="anu-email-address" type="email" data-correct-db-name="email" autocomplete="email address" required>
+          </div>
+
+          <div class="field">
+            <label for="anu-password">Temporary password</label>
+            <div>
+               <input id="anu-password" type="password" data-correct-db-name="password" autocomplete="off" required>
+               <span id="anu-view-password">👁️</span>
+            </div>
+           
+          </div>
+
+          <div class="field">
+            <label for="anu-role">Role</label>
+            <select id="anu-role" name="anu-role" data-correct-db-name="role" required>
+              <option value="Admin">Admin</option>
+              <option value="Sub-Admin">Sub-Admin</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="anu-pf">PF</label>
+            <input id="anu-pf" name="anu-pf" type="text" maxlength="10" data-correct-db-name="pf" autocomplete="off" required>
+          </div>
+
+          <div class="dlg-hint">Username is generated from the initials and PF number.</div>
+        </div>
+
+        <div class="dlg-foot">
+          <button type="button" class="btn-cancel" id="dlg-cancel-btn">Cancel</button>
+          <button type="submit" class="btn-create" id="dlg-create-user-btn">Create user</button>
+        </div>
+
+      </form>
+    </dialog>
+
+    <dialog
+      id="confirm-add-dialog"
+      class="confirm-dialog"
+      aria-labelledby="confirm-title"
+      aria-describedby="confirm-message"
+    >
+
+      <div class="dlg-head">
+        <h2 class="dlg-title" id="confirm-title">Confirm new user</h2>
+        <button type="button" class="dlg-close" id="cancel-x-add-user" aria-label="Close dialog">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="black"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M5 5l14 14M19 5L5 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="confirm-body">
+        <div class="confirm-icon" aria-hidden="true">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="10" cy="8" r="3.5"/>
+            <path d="M3.5 20c0-3.6 2.9-6 6.5-6 1.4 0 2.7.4 3.7 1"/>
+            <path d="M18 14v6M15 17h6"/>
+          </svg>
+        </div>
+        <p class="confirm-text" id="confirm-message">
+          <span class="confirm-lead">Are you sure you want to add:</span>
+          <span class="confirm-name" id="confirm-name">Jane Wanjiru</span> as <span
+            class="confirm-role"
+            id="confirm-role"
+          >Sub-Admin</span>?
+        </p>
+      </div>
+
+      <div class="dlg-foot">
+        <button type="button" class="btn-cancel" id="cancel-add-user">Cancel</button>
+        <button type="button" class="btn-create" id="confirm-add-user">Yes, add user</button>
+      </div>
+
+    </dialog>
+
+    <dialog class="loading-dialog" id="loading-dialog">
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <p>Loading, please wait...</p>
+      </div>
+    </dialog>
+  </body>
+</html>

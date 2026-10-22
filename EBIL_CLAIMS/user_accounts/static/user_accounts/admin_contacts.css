@@ -1,0 +1,213 @@
+html {
+        font-size: 15px;
+      }
+
+      :root {
+        --navy: #0f1f38;
+        --navy-soft: #1b3050;
+        --gold: #c9a227;
+        --gold-dark: #a8841a;
+        --gold-light: #f6ebc4;
+        --cream: #fffbef;
+        --text: #1e2a3d;
+        --muted: #6b7587;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          Roboto,
+          Arial,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.6rem 1.07rem;
+        color: var(--text);
+        background: linear-gradient(
+          135deg,
+          var(--navy) 0%,
+          var(--navy-soft) 55%,
+          var(--cream) 55%,
+          var(--cream) 100%
+        );
+      }
+      .card {
+        width: 100%;
+        max-width: 32rem;
+        background: #fff;
+        border-radius: 1.6rem;
+        padding: 2.67rem 2.4rem 2.13rem;
+        text-align: center;
+        border-top: 0.4rem solid var(--gold);
+        box-shadow: 0 1.33rem 3.33rem rgba(15, 31, 56, 0.25);
+      }
+      .icon {
+        width: 4.27rem;
+        height: 4.27rem;
+        margin: 0 auto 1.2rem;
+        border-radius: 50%;
+        background: var(--gold-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon svg {
+        width: 2rem;
+        height: 2rem;
+        stroke: var(--gold-dark);
+        fill: none;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      h1 {
+        font-size: 1.6rem;
+        color: var(--navy);
+        margin-bottom: 0.53rem;
+      }
+      .lead {
+        color: var(--muted);
+        font-size: 0.97rem;
+        line-height: 1.55;
+        margin-bottom: 1.73rem;
+      }
+      .contact-box {
+        background: var(--cream);
+        border: 0.07rem solid var(--gold-light);
+        border-left: 0.27rem solid var(--gold);
+        border-radius: 0.93rem;
+        padding: 1.07rem 1.2rem;
+        text-align: left;
+        margin-bottom: 1.47rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+      }
+      .contact-box .label {
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--gold-dark);
+        font-weight: 700;
+        margin-bottom: 0.27rem;
+      }
+      .contact-box .email {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--navy);
+        word-break: break-all;
+      }
+      .copy-btn {
+        flex-shrink: 0;
+        border: 0.07rem solid var(--gold);
+        background: #fff;
+        color: var(--gold-dark);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.6rem;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .copy-btn:hover {
+        background: var(--gold-light);
+      }
+      .copy-btn.copied {
+        background: var(--gold);
+        color: var(--navy);
+      }
+      .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.67rem;
+        width: 100%;
+        padding: 0.93rem 1.33rem;
+        border-radius: 0.8rem;
+        background: var(--gold);
+        color: var(--navy);
+        font-size: 1.02rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          transform 0.1s,
+          box-shadow 0.2s;
+        box-shadow: 0 0.4rem 1.07rem rgba(201, 162, 39, 0.35);
+      }
+      .btn:hover {
+        background: var(--gold-dark);
+        color: #fff;
+      }
+      .btn:active {
+        transform: translateY(0.07rem);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--navy);
+        border: 0.13rem solid var(--gold);
+        box-shadow: none;
+      }
+      .btn-outline:hover {
+        background: var(--gold-light);
+        color: var(--navy);
+      }
+      .btn:focus-visible,
+      .back:focus-visible,
+      .copy-btn:focus-visible {
+        outline: 0.2rem solid var(--navy);
+        outline-offset: 0.2rem;
+      }
+      .btn svg {
+        width: 1.33rem;
+        height: 1.33rem;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .hint {
+        margin-top: 1.2rem;
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .back {
+        display: inline-block;
+        margin-top: 1.47rem;
+        color: var(--gold-dark);
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+      .back:hover {
+        text-decoration: underline;
+        color: var(--navy);
+      }
+      /* Media queries use the browser default (16px) for rem, so 30rem = 480px */
+      @media (max-width: 30rem) {
+        .card {
+          padding: 2.13rem 1.47rem 1.73rem;
+        }
+        h1 {
+          font-size: 1.4rem;
+        }
+      }

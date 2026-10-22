@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="100%" height="100%">
+  <!-- Definitions for clean shadow and glow effects -->
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="checkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Shield Background -->
+  <path d="M32 4 C32 4 52 8 56 16 C56 34 46 50 32 60 C18 50 8 34 8 16 C12 8 32 4 32 4 Z" 
+        fill="url(#shieldGrad)" 
+        stroke="#60A5FA" 
+        stroke-width="2.5" 
+        filter="url(#dropShadow)" />
+
+  <!-- Inner Highlight Line for Depth -->
+  <path d="M32 8 C32 8 48 11.5 52 18 C52 32 43 46 32 55 C21 46 12 32 12 18 C16 11.5 32 8 32 8 Z" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-opacity="0.15" 
+        stroke-width="1.5" />
+
+  <!-- Checkmark -->
+  <path d="M22 32 L29 39 L43 23" 
+        fill="none" 
+        stroke="url(#checkGrad)" 
+        stroke-width="6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
+</svg>

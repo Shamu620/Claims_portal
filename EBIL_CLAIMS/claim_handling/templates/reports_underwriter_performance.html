@@ -1,0 +1,107 @@
+{% extends "master_template.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Reports&Analysis | Leaderboard{% endblock title %}
+
+{% block static_links %}
+<script src="{% static 'claim_handling/chart_js.js' %}"></script>
+<link rel="stylesheet" href="{% static 'claim_handling/reports_underwriter_performance.css' %}">
+{% endblock static_links %}
+
+{% block content %}
+<div class="reports-major-container">
+    <h2>Reports & Analysis</h2>
+    <small style="color: #8191a8e2; font-style: italic">Reports & Analysis > Underwriter performance</small>
+
+    <nav class="reports-navigation-bar">
+        <ul>
+            <li><a href='{% url "reports_underwriter_performance_page" %}' style="border-bottom: 2px solid #faae0ce2;">Underwriter Performance</a></li>
+            <li><a href='{% url "reports_claims_data_page" %}'>Claims Data</a></li>
+            <li><a href='{% url "reports_trends_page" %}'>Trends</a></li>
+        </ul>
+    </nav>
+
+    <!-- Summary metrics -->
+    <div class="reports-metrics-bar">
+        <div>
+            <h6>Total Claims</h6>
+            <h3 class="metric-value">{{ underwriter_metrics.total_claims_all|floatformat:0|intcomma }}</h3>
+        </div>
+        <div>
+            <h6>Closed</h6>
+            <h3 class="metric-value">{{ underwriter_metrics.total_closed_claims_all|floatformat:0|intcomma }}</h3>
+        </div>
+        <div>
+            <h6>Pending</h6>
+            <h3 class="metric-value">{{ underwriter_metrics.total_pending_claims_all|floatformat:0|intcomma }}</h3>
+        </div>
+        <div>
+            <h6>Overall Settlement Ratio</h6>
+            <h3 class="metric-value">{{ underwriter_metrics.overall_settlement_ratio|floatformat:2|intcomma }}%</h3>
+        </div>
+        <div>
+            <h6>Avg Turnaround Time</h6>
+            <h3 class="metric-value">{{ underwriter_metrics.average_turnaround_time_all|floatformat:2|intcomma }} days</h3>
+        </div>
+    </div>
+
+    <!-- Leaderboard table -->
+    <div class="reports-metrics-table-wrapper">
+        <table class="reports-metrics-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Underwriter</th>
+                    <th>Total Claims</th>
+                    <th>Closed</th>
+                    <th>Pending</th>
+                    <th>Settlement Ratio</th>
+                    <th>Avg Turnaround Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for underwriter in underwriter_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ underwriter.underwriter_name }}</td>
+                    <td>{{ underwriter.total_claims_per_underwriter }}</td>
+                    <td>{{ underwriter.closed_claims }}</td>
+                    <td>{{ underwriter.pending_claims }}</td>
+                    <td class="{% if underwriter.settlement_ratio < 40 %}below-threshold{% elif underwriter.settlement_ratio < 60 %}fairly-good{% else %}excellent{% endif %}">
+                        {{ underwriter.settlement_ratio }}%
+                    </td>
+                    <td class="{% if underwriter.average_tat_dv < 5 %}excellent{% elif underwriter.average_tat_dv < 11 %}fairly-good{% else %}below-threshold{% endif %}">
+                        {{ underwriter.average_tat_dv }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No underwriter data available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Charts -->
+    <div class="graphs-wrapper">
+        <div class="chart-card">
+            <div class="chart-area"><canvas id="settlement-ratio-graph"></canvas></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-area"><canvas id="pending_and_closed_each_underwriter_graph"></canvas></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-area"><canvas id="average_tat_dv_graph"></canvas></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-area"><canvas id="rejection_rate_graph"></canvas></div>
+        </div>
+    </div>
+</div>
+
+{# Data for the charts: must come BEFORE the JS file #}
+{{ underwriter_data|json_script:"underwriter-data" }}
+
+<script src="{% static 'claim_handling/reports_underwriter_performance.js' %}"></script>
+{% endblock content %}

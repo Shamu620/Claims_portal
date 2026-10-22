@@ -1,0 +1,33 @@
+# PyCharm / IDE settings
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.env
+
+# Virtual Environments
+EBIL_1.1_ENV/
+ENV/
+env/
+venv/
+
+# Databases
+db.sqlite3
+*.dump
+dump.*
+
+# Media and Static uploads (keep the repo light)
+media/
+production_static/
+
+# Temp Excel / Test files from the root
+dump_or_test.py

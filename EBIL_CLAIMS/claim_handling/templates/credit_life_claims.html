@@ -1,0 +1,1537 @@
+{% extends "master_template.html" %}
+{% load static %}
+{% block title%}Sub-Admin | Dashboard{% endblock title %}
+{%block static_links %}
+<link rel="stylesheet" href="{% static 'claim_handling/credit_life_claims.css' %}">
+<script src="{% static 'claim_handling/credit_life_claims.js' %}" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" >
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+<script src="{% static 'claim_handling/sweetalert2.js' %}"></script>
+<link rel="stylesheet" href="{% static 'claim_handling/sweetalert2.min.css' %}">
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
+/>
+
+{% endblock static_links %}
+{% block content %}
+<h2>Home</h2>
+<div class="welcome-refresh">
+  <small>Welcome back - here's what needs your attention today</small>
+  <div style="display: flex; padding-right: 1.5rem; gap: 1rem">
+        <div style="display: flex; align-items: center">
+          <div
+            style="
+              height: 1rem;
+              aspect-ratio: 1;
+              background-color: rgba(241, 196, 15, 0.2);
+              border: 1px solid black;
+            "
+          ></div>
+          <p>:older than 10days but less than 15days</p>
+        </div>
+        <div style="display: flex; align-items: center">
+          <div
+            style="
+              height: 1rem;
+              aspect-ratio: 1;
+              background-color: rgba(217, 83, 79, 0.2);
+              border: 1px solid black;
+            "
+          ></div>
+          <p>:older than 15 days</p>
+        </div>
+      </div>
+</div>
+
+<div class="main-box">
+  <div class="left">
+    <div>
+      <p>PENDING CLAIMS BY CATEGORY</p>
+    </div>
+    <div class="all-pending" data-url="{% url 'pending_claims_page' %}">
+      <div class="category-symbol">
+        <p>&#9200;&#65038;</p>
+        <h4>All Pending</h4>
+      </div>
+      <p>{{ total_pending_claims }}</p>
+    </div>
+    <div class="motor" data-url="{% url 'motor_claims_page' %}">
+      <div class="category-symbol">
+        <p>&#9933;</p>
+        <h4>Motor</h4>
+      </div>
+      <p id="total-pending-motor-claims">{{ total_pending_motor_claims }}</p>
+    </div>
+    <div class="non-motor" data-url="{% url 'non_motor_claims_page' %}" >
+      <div class="category-symbol">
+        <p>&#128230;&#65038;</p>
+        <h4>Non-Motor</h4>
+      </div>
+      <p id="total-pending-non-motor-claims">{{ total_pending_non_motor_claims }}</p>
+    </div>
+    <div class="credit-life active-category" data-url= {% url "credit_life_claims_page" %}>
+      <div class="category-symbol">
+        <p>&#9960;</p>
+        <h4>Credit-Life</h4>
+      </div>
+      <p id="total-pending-credit-life-claims">{{ total_pending_credit_life_claims }}</p>
+    </div>
+    <div class="legal" data-url={% url "legal_claims_page" %}>
+      <div class="category-symbol">
+        <p>&#128220;&#65038;</p>
+        <h4>Legal</h4>
+      </div>
+      <p>{{ total_pending_legal_claims }}</p>
+    </div>
+  </div>
+  <div class="right">
+    <div class="header">
+      <h4>Pending Credit-Life Claims</h4>
+    </div>
+    <div class="search-box">
+      <div class="search">
+        <div>&#x1F50D;&#xFE0E;</div>
+        <input
+          type="search"
+          id="searching"
+          placeholder="search by client..."
+        />
+      </div>
+      <select id="handler-filter">
+        <option value="" selected>All handlers</option>
+        <option value="Erick">Erick</option>
+        <option value="Grishon">Grishon</option>
+        <option value="Chrisandos">Chrisandos</option>
+        <option value="Patrick">Patrick</option>
+        <option value="Mary">Mary</option>
+      </select>
+      <select name="" id="sub-status-filter">
+        <option value="" selected>All pending Credit-Life Claims</option>
+        <option value="Pending with underwriter">
+          Pending with underwriter
+        </option>
+        <option value="Pending with client">Pending with client</option>
+      </select>
+      <select name="" id="branch-filter">
+        <option value="" selected>All Branches</option>
+         <option value="EBIL Head Office">EBIL Head Office</option>
+            <option value="Corporate Fourways">Corporate Fourways</option>
+            <option value="Archers Post">Archers Post</option>
+            <option value="Awendo">Awendo</option>
+            <option value="Bomet">Bomet</option>
+            <option value="Bondo">Bondo</option>
+            <option value="Bungoma">Bungoma</option>
+            <option value="Buru Buru">Buru Buru</option>
+            <option value="Busia">Busia</option>
+            <option value="Chaka">Chaka</option>
+            <option value="Changamwe">Changamwe</option>
+            <option value="Chuka">Chuka</option>
+            <option value="City Hall">City Hall</option>
+            <option value="Community">Community</option>
+            <option value="Community Corporate">Community Corporate</option>
+            <option value="Dadaab">Dadaab</option>
+            <option value="Dagoretti Corner">Dagoretti Corner</option>
+            <option value="Donholm">Donholm</option>
+            <option value="Eastleigh">Eastleigh</option>
+            <option value="Eldama Ravine">Eldama Ravine</option>
+            <option value="Eldoret">Eldoret</option>
+            <option value="Eldoret Market">Eldoret Market</option>
+            <option value="Eldoret Supreme Centre">Eldoret Supreme Centre</option>
+            <option value="Emali">Emali</option>
+            <option value="Embakasi">Embakasi</option>
+            <option value="Embassy House">Embassy House</option>
+            <option value="Embu">Embu</option>
+            <option value="Engineer">Engineer</option>
+            <option value="Enterprise Road">Enterprise Road</option>
+            <option value="EPZ Athi River">EPZ Athi River</option>
+            <option value="Equity Centre">Equity Centre</option>
+            <option value="Equity Centre Diaspora">Equity Centre Diaspora</option>
+            <option value="Equity Hapo Hapo">Equity Hapo Hapo</option>
+            <option value="Fourways">Fourways</option>
+            <option value="Garden City">Garden City</option>
+            <option value="Garissa">Garissa</option>
+            <option value="Gatundu">Gatundu</option>
+            <option value="Gigiri Supreme Centre">Gigiri Supreme Centre</option>
+            <option value="Gikomba">Gikomba</option>
+            <option value="Gilgil">Gilgil</option>
+            <option value="Githunguri">Githunguri</option>
+            <option value="Githurai">Githurai</option>
+            <option value="Harambee Avenue">Harambee Avenue</option>
+            <option value="Hola">Hola</option>
+            <option value="Homa Bay">Homa Bay</option>
+            <option value="Industrial Area Kenpipe Plaza">Industrial Area (Kenpipe Plaza)</option>
+            <option value="Inland Container Depot Embakasi">Inland Container Depot (ICD) Embakasi</option>
+            <option value="Isibania">Isibania</option>
+            <option value="Isinya">Isinya</option>
+            <option value="Isiolo">Isiolo</option>
+            <option value="Iten">Iten</option>
+            <option value="JKIA Cargo Centre">JKIA Cargo Centre</option>
+            <option value="Juja">Juja</option>
+            <option value="Kabarnet">Kabarnet</option>
+            <option value="Kagio">Kagio</option>
+            <option value="Kagwe Sub Branch">Kagwe Sub Branch</option>
+            <option value="Kahawa West">Kahawa West</option>
+            <option value="Kajiado">Kajiado</option>
+            <option value="Kakamega">Kakamega</option>
+            <option value="Kakuma">Kakuma</option>
+            <option value="Kangari">Kangari</option>
+            <option value="Kangema">Kangema</option>
+            <option value="Kangemi">Kangemi</option>
+            <option value="Kapenguria">Kapenguria</option>
+            <option value="Kapsabet">Kapsabet</option>
+            <option value="Kapsowar Sub Branch">Kapsowar Sub-Branch</option>
+            <option value="Karatina">Karatina</option>
+            <option value="Karen">Karen</option>
+            <option value="Karen Supreme Centre">Karen Supreme Centre</option>
+            <option value="Kariobangi">Kariobangi</option>
+            <option value="Kasarani">Kasarani</option>
+            <option value="Kawangware">Kawangware</option>
+            <option value="Kawangware Sub Branch">Kawangware Sub Branch</option>
+            <option value="Kayole">Kayole</option>
+            <option value="Kengeleni">Kengeleni</option>
+            <option value="Kenol">Kenol</option>
+            <option value="Kenyatta Avenue">Kenyatta Avenue</option>
+            <option value="Kenyatta Avenue Supreme">Kenyatta Avenue Supreme</option>
+            <option value="Kenyatta Market">Kenyatta Market</option>
+            <option value="Kericho">Kericho</option>
+            <option value="Keroka">Keroka</option>
+            <option value="Kerugoya">Kerugoya</option>
+            <option value="Kiambu">Kiambu</option>
+            <option value="Kibera">Kibera</option>
+            <option value="Kibwezi Sub Branch">Kibwezi Sub-Branch</option>
+            <option value="Kikuyu">Kikuyu</option>
+            <option value="Kilgoris">Kilgoris</option>
+            <option value="Kilifi">Kilifi</option>
+            <option value="Kilimani">Kilimani</option>
+            <option value="Kilimani Supreme">Kilimani Supreme</option>
+            <option value="Kimathi Street">Kimathi Street</option>
+            <option value="Kimende">Kimende</option>
+            <option value="Kiriaini">Kiriaini</option>
+            <option value="Kiserian Sub Branch">Kiserian Sub Branch</option>
+            <option value="Kisii">Kisii</option>
+            <option value="Kisumu">Kisumu</option>
+            <option value="Kisumu Angawa Avenue">Kisumu Angawa Avenue</option>
+            <option value="Kisumu Supreme Centre">Kisumu Supreme Centre</option>
+            <option value="Kitale">Kitale</option>
+            <option value="Kitengela">Kitengela</option>
+            <option value="Kitui">Kitui</option>
+            <option value="Knut House">Knut House</option>
+            <option value="KPA Sub-Branch Mombasa">KPA Sub-Branch Mombasa</option>
+            <option value="KPCU">KPCU</option>
+            <option value="KU Sub Branch">KU Sub Branch</option>
+            <option value="Kutus Sub Branch">Kutus Sub-Branch</option>
+            <option value="Kwale">Kwale</option>
+            <option value="Laare">Laare</option>
+            <option value="Lamu">Lamu</option>
+            <option value="Lavington Corporate">Lavington Corporate</option>
+            <option value="Limuru">Limuru</option>
+            <option value="Litein">Litein</option>
+            <option value="Lodwar">Lodwar</option>
+            <option value="Loitoktok">Loitoktok</option>
+            <option value="Luanda">Luanda</option>
+            <option value="Machakos">Machakos</option>
+            <option value="Malaba Town">Malaba Town</option>
+            <option value="Malindi">Malindi</option>
+            <option value="Mama Ngina">Mama Ngina</option>
+            <option value="Mandera">Mandera</option>
+            <option value="Maralal">Maralal</option>
+            <option value="Marsabit">Marsabit</option>
+            <option value="Matuu">Matuu</option>
+            <option value="Maua">Maua</option>
+            <option value="Mayfair Supreme Centre">Mayfair Supreme Centre</option>
+            <option value="Mbale">Mbale</option>
+            <option value="Mbita">Mbita</option>
+            <option value="Meru">Meru</option>
+            <option value="Meru Makutano">Meru Makutano</option>
+            <option value="Migori">Migori</option>
+            <option value="Mlolongo">Mlolongo</option>
+            <option value="Moi Avenue">Moi Avenue</option>
+            <option value="Mombasa">Mombasa</option>
+            <option value="Mombasa Digo Road">Mombasa Digo Road</option>
+            <option value="Mombasa Road">Mombasa Road</option>
+            <option value="Mombasa Supreme Centre">Mombasa Supreme Centre</option>
+            <option value="Moyale">Moyale</option>
+            <option value="Mpeketoni">Mpeketoni</option>
+            <option value="Mtwapa">Mtwapa</option>
+            <option value="Mukurweini">Mukurwe-ini</option>
+            <option value="Mumias">Mumias</option>
+            <option value="Murarandia">Murarandia</option>
+            <option value="Muranga">Muranga</option>
+            <option value="Mutomo">Mutomo</option>
+            <option value="Mwea">Mwea</option>
+            <option value="Mwingi">Mwingi</option>
+            <option value="Nairobi West">Nairobi West</option>
+            <option value="Naivasha">Naivasha</option>
+            <option value="Nakuru">Nakuru</option>
+            <option value="Nakuru Kenyatta Avenue">Nakuru Kenyatta Avenue</option>
+            <option value="Nakuru Westside Mall">Nakuru Westside Mall</option>
+            <option value="Namanga">Namanga</option>
+            <option value="Nandi Hills">Nandi Hills</option>
+            <option value="Nanyuki">Nanyuki</option>
+            <option value="Narok">Narok</option>
+            <option value="Ngara">Ngara</option>
+            <option value="Ngong">Ngong</option>
+            <option value="Njabini">Njabini</option>
+            <option value="Nkubu">Nkubu</option>
+            <option value="Nyahururu">Nyahururu</option>
+            <option value="Nyali Centre Corporate">Nyali Centre Corporate</option>
+            <option value="Nyali Supreme Centre">Nyali Supreme Centre</option>
+            <option value="Nyamira">Nyamira</option>
+            <option value="Nyeri">Nyeri</option>
+            <option value="Nyeri Kimathi Way">Nyeri Kimathi Way</option>
+            <option value="Ol Kalou">Ol Kalou</option>
+            <option value="Ongata Rongai">Ongata Rongai</option>
+            <option value="OTC">OTC</option>
+            <option value="Othaya">Othaya</option>
+            <option value="Oyugis">Oyugis</option>
+            <option value="Ridgeways">Ridgeways</option>
+            <option value="Ruai">Ruai</option>
+            <option value="Ruaka">Ruaka</option>
+            <option value="Ruiru">Ruiru</option>
+            <option value="Rumuruti">Rumuruti</option>
+            <option value="Runyenjes Sub Branch">Runyenjes Sub Branch</option>
+            <option value="Siaya">Siaya</option>
+            <option value="Sotik">Sotik</option>
+            <option value="Taita Taveta">Taita Taveta</option>
+            <option value="Tala">Tala</option>
+            <option value="Tea Room">Tea Room</option>
+            <option value="Thika Equity Plaza">Thika / Equity Plaza</option>
+            <option value="Thika Kenyatta Avenue">Thika Kenyatta Avenue</option>
+            <option value="Thika Makongeni">Thika Makongeni</option>
+            <option value="Thika Supreme Centre">Thika Supreme Centre</option>
+            <option value="Ukunda">Ukunda</option>
+            <option value="Utawala">Utawala</option>
+            <option value="Voi">Voi</option>
+            <option value="Wajir">Wajir</option>
+            <option value="Wangige Sub Branch">Wangige Sub Branch</option>
+            <option value="Westlands">Westlands</option>
+            <option value="Westlands Corporate">Westlands Corporate</option>
+            <option value="Wote">Wote</option>
+      </select>
+      <!-- Professional Primary CTA -->
+      <button type="button" title="Create a new credit-life claim entry" id="add-new-claim-btn">
+        <span class="btn-icon">&#43;</span>
+        <span class="btn-text">New Credit-Life Claim</span>
+      </button>
+    </div>
+    <table class="" id="major-table">
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<dialog id="claim-details-dialog" class="claim-details-dialog">
+  <div class="dialog-header">
+    <div class="heading-block">
+      <h4 id="claim-id">Claim 101</h4>
+      <span id="trigger-header">Death</span>
+    </div>
+    <div class="header-actions">
+      <span class="status-pill">Pending</span>
+      <button
+        class="close-btn"
+        id="close-dialog-btn"
+        aria-label="Close claim details"
+      >
+        &#10006;
+      </button>
+    </div>
+  </div>
+
+  <form id="details-form" class="details-form">
+    <!-- =================== -->
+    <section class="section-card">
+      <h6 class="section-title">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 13l1.6-4.8A2 2 0 0 1 6.5 7h11a2 2 0 0 1 1.9 1.2L21 13" />
+          <path
+            d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"
+          />
+          <circle cx="7.5" cy="16.5" r="1" />
+          <circle cx="16.5" cy="16.5" r="1" />
+        </svg>
+        Insured &amp; Vehicle
+      </h6>
+      <div class="field-grid">
+        <div class="field">
+          <label for="name-of-insured">Name of Insured</label>
+          <input id="name-of-insured" type="text" />
+        </div>
+        <div class="field">
+          <label for="claim-number">Claim Number</label>
+          <input id="claim-number" type="text" />
+        </div>
+        <div class="field">
+          <label for="days-pending">Days Pending</label>
+          <input id="days-pending" type="text" />
+        </div>
+        <div class="field">
+          <label for="category">Category</label>
+          <input id="category" value="Credit_Life" type="text" readonly/>
+        </div>
+        <div class="field">
+          <label for="trigger">Trigger</label>
+          <select id="trigger" name="claim_trigger">
+            <option value="" disabled selected>Select claim trigger</option>
+          
+            <optgroup label="Death">
+              <option value="Death - Natural">Death – Natural Causes</option>
+              <option value="Death - Accident">Death – Accident</option>
+              <option value="Death - Suicide">Death – Suicide</option>
+            </optgroup>
+          
+            <optgroup label="Disability">
+              <option value="Total Permanent Dissability(TPD)">Total Permanent Disability(TPD)</option>
+              <option value="Total Temporary Disability(TTD)">Total Temporary Disability(TTD)</option>
+              <option value="Permanent Partial Disability(PPD)">Permanent Partial Disability(PPD)</option>
+            </optgroup>
+          
+            <optgroup label="Employment / Income">
+              <option value="Retrenchment(Loss of Employment)">Retrenchment / Loss of Employment</option>
+              <option value="Critical Illness">Critical Illness</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="field">
+          <label for="circumstance">Circumstance</label>
+          <select id="circumstance" name="circumstance">
+            <option value="" disabled selected>Select circumstance</option>
+            <optgroup label="Death - Natural Causes">
+              <option value="Cardiac Arrest">Cardiac Arrest</option>
+              <option value="Heart Failure">Heart Failure</option>
+              <option value="Stroke">Stroke</option>
+              <option value="Cancer">Cancer</option>
+              <option value="Diabetes Complications">Diabetes Complications</option>
+              <option value="Kidney Failure">Kidney Failure</option>
+              <option value="Liver Failure">Liver Failure</option>
+              <option value="Organ Failure">Organ Failure</option>
+              <option value="Pneumonia">Pneumonia</option>
+              <option value="Tuberculosis">Tuberculosis</option>
+              <option value="Asthma Complications">Asthma Complications</option>
+              <option value="Malaria">Malaria</option>
+              <option value="Typhoid">Typhoid</option>
+              <option value="COVID-19">COVID-19</option>
+              <option value="Complications from Childbirth">Complications from Childbirth</option>
+              <option value="Old Age">Old Age</option>
+              <option value="Other Terminal Illness">Other Terminal Illness</option>
+            </optgroup>
+          
+            <optgroup label="Death - Accident">
+              <option value="Road Traffic Accident">Road Traffic Accident</option>
+              <option value="Drowning">Drowning</option>
+              <option value="Fire">Fire</option>
+              <option value="Burns">Burns</option>
+              <option value="Fall from Height">Fall from Height</option>
+              <option value="Electrocution">Electrocution</option>
+              <option value="Workplace Accident">Workplace Accident</option>
+              <option value="Industrial Accident">Industrial Accident</option>
+              <option value="Accidental Poisoning">Accidental Poisoning</option>
+              <option value="Animal Attack">Animal Attack</option>
+              <option value="Firearm Accident">Firearm Accident</option>
+              <option value="Other Accidental Death">Other Accidental Death</option>
+            </optgroup>
+          
+            <optgroup label="Death - Suicide">
+              <option value="Confirmed Suicide">Confirmed Suicide</option>
+              <option value="Suicide During Mental Health Crisis">Suicide During Mental Health Crisis</option>
+              <option value="Self-Inflicted Death Pending Investigation">Self-Inflicted Death Pending Investigation</option>
+            </optgroup>
+          
+            <optgroup label="Total Permanent Disability (TPD)">
+              <option value="Loss of Both Limbs">Loss of Both Limbs</option>
+              <option value="Loss of Sight">Loss of Sight (Both Eyes)</option>
+              <option value="Loss of Hearing">Loss of Hearing (Both Ears)</option>
+              <option value="Paraplegia">Paraplegia</option>
+              <option value="Quadriplegia">Quadriplegia</option>
+              <option value="Severe Traumatic Brain Injury">Severe Traumatic Brain Injury</option>
+              <option value="Loss of Speech">Loss of Speech</option>
+              <option value="Major Organ Failure Lifelong Care">Major Organ Failure Requiring Lifelong Care</option>
+              <option value="Severe Stroke">Severe Stroke</option>
+              <option value="Other Permanent Incapacitating Condition">Other Permanent Incapacitating Condition</option>
+            </optgroup>
+          
+            <optgroup label="Total Temporary Disability (TTD)">
+              <option value="Fracture Requiring Extended Recovery">Fracture Requiring Extended Recovery</option>
+              <option value="Post-Surgery Recovery Period">Post-Surgery Recovery Period</option>
+              <option value="Illness Requiring Hospitalization">Illness Requiring Hospitalization</option>
+              <option value="Bed Rest Due to Illness">Bed Rest Due to Illness</option>
+              <option value="Temporary Loss of Mobility">Temporary Loss of Mobility</option>
+              <option value="Non-Permanent Injury from Accident">Non-Permanent Injury from Accident</option>
+              <option value="Temporary Mental Health Incapacity">Temporary Mental Health Incapacity</option>
+              <option value="Maternity-Related Complication">Maternity-Related Complication</option>
+            </optgroup>
+          
+            <optgroup label="Permanent Partial Disability (PPD)">
+              <option value="Loss of One Limb">Loss of One Limb</option>
+              <option value="Loss of One Eye">Loss of One Eye</option>
+              <option value="Loss of Fingers">Loss of Fingers</option>
+              <option value="Loss of Toes">Loss of Toes</option>
+              <option value="Partial Hearing Loss">Partial Hearing Loss</option>
+              <option value="Facial Disfigurement">Facial Disfigurement</option>
+              <option value="Partial Loss of Mobility">Partial Loss of Mobility</option>
+              <option value="Partial Loss of Function">Partial Loss of Function</option>
+            </optgroup>
+          
+            <optgroup label="Retrenchment (Loss of Employment)">
+              <option value="Company Restructuring">Company Restructuring</option>
+              <option value="Company Downsizing">Company Downsizing</option>
+              <option value="Redundancy">Redundancy</option>
+              <option value="Company Closure">Company Closure</option>
+              <option value="Company Liquidation">Company Liquidation</option>
+              <option value="Contract Non-Renewal">Contract Non-Renewal</option>
+              <option value="Termination Due to Economic Hardship">Termination Due to Economic Hardship</option>
+              <option value="Merger-Related Layoff">Merger-Related Layoff</option>
+              <option value="Acquisition-Related Layoff">Acquisition-Related Layoff</option>
+            </optgroup>
+          
+            <optgroup label="Critical Illness">
+              <option value="Cancer">Cancer</option>
+              <option value="Stroke">Stroke</option>
+              <option value="Heart Attack">Heart Attack (Myocardial Infarction)</option>
+              <option value="Kidney Failure">Kidney Failure</option>
+              <option value="Major Organ Transplant">Major Organ Transplant</option>
+              <option value="Coronary Artery Bypass Surgery">Coronary Artery Bypass Surgery</option>
+              <option value="Multiple Sclerosis">Multiple Sclerosis</option>
+              <option value="Paralysis Due to Illness">Paralysis Due to Illness</option>
+              <option value="Blindness Due to Illness">Blindness Due to Illness</option>
+              <option value="Coma">Coma</option>
+            </optgroup>
+          
+          </select>
+          </div>
+          </div>
+          </section>
+
+    <!-- =================== -->
+    <section class="section-card">
+      <h6 class="section-title">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="3.5" y="4.5" width="17" height="16" rx="2" />
+          <path d="M3.5 9.5h17" />
+          <path d="M8 3v3" />
+          <path d="M16 3v3" />
+          <path d="M8.5 13.5l2 2 4.5-4.5" />
+        </svg>
+        Dates &amp; Documentation
+      </h6>
+      <div class="field-grid">
+        <div class="field">
+          <label for="intimation-date">Intimation Date</label>
+          <input id="intimation-date" type="date" />
+        </div>
+        <div class="field">
+          <label for="date-of-loss">Date of Loss</label>
+          <input id="date-of-loss" type="date" />
+        </div>
+        <div class="field">
+          <label for="documented">Documented?</label>
+          <select id="documented" name="documented">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="date-fully-documented">Date Fully Documented</label>
+          <input
+            id="date-fully-documented"
+            type="date"
+            name="date_fully_documented"
+            required
+          />
+        </div>
+        <!-- <div class="field doc-link">
+          <label for="doc-link-1">Supporting Documents &#40;link&#41;</label>
+          <a id="doc-link-1" href="">Click to view</a>
+        </div>
+        <div class="field doc-link">
+          <label for="doc-link-2">Supporting Documents &#40;link&#41;</label>
+          <a id="doc-link-2" href="">Click to view</a>
+        </div> -->
+      </div>
+    </section>
+
+    <!-- =================== -->
+    <section class="section-card">
+      <h6 class="section-title">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="8" r="3.2" />
+          <path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2" />
+          <path d="M18.5 5.5l1.2 1.2" />
+          <path d="M20.2 4.3l.9.9-.9.9-.9-.9z" />
+        </svg>
+        Handling
+      </h6>
+      <div class="field-grid">
+        <div class="field">
+          <label for="underwriter">Underwriter</label>
+          <select id="underwriter">
+            <option value="">Select underwriter…</option>
+            <option value="Jubilee Allianz">Jubilee Allianz</option>
+            <option value="AAR Insurance">AAR Insurance</option>
+            <option value="APA Insurance">APA Insurance</option>
+            <option value="Britam General Insurance">
+              Britam General Insurance
+            </option>
+            <option value="CIC General Insurance">CIC General Insurance</option>
+            <option value="Kenindia Assurance">Kenindia Assurance</option>
+            <option value="Madison General Insurance">
+              Madison General Insurance
+            </option>
+            <option value="ICEA LION General Insurance">
+              ICEA LION General Insurance
+            </option>
+            <option value="Heritage Insurance">Heritage Insurance</option>
+            <option value="GA Insurance">GA Insurance</option>
+            <option value="Sanlam General Insurance">
+              Sanlam General Insurance
+            </option>
+            <option value="Old Mutual General Insurance">
+              Old Mutual General Insurance
+            </option>
+            <option value="Directline Assurance">Directline Assurance</option>
+            <option value="First Assurance">First Assurance</option>
+            <option value="Occidental Insurance">Occidental Insurance</option>
+            <option value="Kenya Orient Insurance">
+              Kenya Orient Insurance
+            </option>
+            <option value="Mayfair Insurance">Mayfair Insurance</option>
+            <option value="Geminia Insurance">Geminia Insurance</option>
+            <option value="Trident Insurance">Trident Insurance</option>
+            <option value="Fidelity Shield Insurance">
+              Fidelity Shield Insurance
+            </option>
+            <option value="Cannon General Insurance">
+              Cannon General Insurance
+            </option>
+            <option value="Amaco">Amaco</option>
+            <option value="Invesco Assurance">Invesco Assurance</option>
+            <option value="Xplico Insurance">Xplico Insurance</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="branch">Branch</label>
+          <select id="branch">
+            <option value="EBIL Head Office">EBIL Head Office</option>
+            <option value="Corporate Fourways">Corporate Fourways</option>
+            <option value="Archers Post">Archers Post</option>
+            <option value="Awendo">Awendo</option>
+            <option value="Bomet">Bomet</option>
+            <option value="Bondo">Bondo</option>
+            <option value="Bungoma">Bungoma</option>
+            <option value="Buru Buru">Buru Buru</option>
+            <option value="Busia">Busia</option>
+            <option value="Chaka">Chaka</option>
+            <option value="Changamwe">Changamwe</option>
+            <option value="Chuka">Chuka</option>
+            <option value="City Hall">City Hall</option>
+            <option value="Community">Community</option>
+            <option value="Community Corporate">Community Corporate</option>
+            <option value="Dadaab">Dadaab</option>
+            <option value="Dagoretti Corner">Dagoretti Corner</option>
+            <option value="Donholm">Donholm</option>
+            <option value="Eastleigh">Eastleigh</option>
+            <option value="Eldama Ravine">Eldama Ravine</option>
+            <option value="Eldoret">Eldoret</option>
+            <option value="Eldoret Market">Eldoret Market</option>
+            <option value="Eldoret Supreme Centre">Eldoret Supreme Centre</option>
+            <option value="Emali">Emali</option>
+            <option value="Embakasi">Embakasi</option>
+            <option value="Embassy House">Embassy House</option>
+            <option value="Embu">Embu</option>
+            <option value="Engineer">Engineer</option>
+            <option value="Enterprise Road">Enterprise Road</option>
+            <option value="EPZ Athi River">EPZ Athi River</option>
+            <option value="Equity Centre">Equity Centre</option>
+            <option value="Equity Centre Diaspora">Equity Centre Diaspora</option>
+            <option value="Equity Hapo Hapo">Equity Hapo Hapo</option>
+            <option value="Fourways">Fourways</option>
+            <option value="Garden City">Garden City</option>
+            <option value="Garissa">Garissa</option>
+            <option value="Gatundu">Gatundu</option>
+            <option value="Gigiri Supreme Centre">Gigiri Supreme Centre</option>
+            <option value="Gikomba">Gikomba</option>
+            <option value="Gilgil">Gilgil</option>
+            <option value="Githunguri">Githunguri</option>
+            <option value="Githurai">Githurai</option>
+            <option value="Harambee Avenue">Harambee Avenue</option>
+            <option value="Hola">Hola</option>
+            <option value="Homa Bay">Homa Bay</option>
+            <option value="Industrial Area Kenpipe Plaza">Industrial Area (Kenpipe Plaza)</option>
+            <option value="Inland Container Depot Embakasi">Inland Container Depot (ICD) Embakasi</option>
+            <option value="Isibania">Isibania</option>
+            <option value="Isinya">Isinya</option>
+            <option value="Isiolo">Isiolo</option>
+            <option value="Iten">Iten</option>
+            <option value="JKIA Cargo Centre">JKIA Cargo Centre</option>
+            <option value="Juja">Juja</option>
+            <option value="Kabarnet">Kabarnet</option>
+            <option value="Kagio">Kagio</option>
+            <option value="Kagwe Sub Branch">Kagwe Sub Branch</option>
+            <option value="Kahawa West">Kahawa West</option>
+            <option value="Kajiado">Kajiado</option>
+            <option value="Kakamega">Kakamega</option>
+            <option value="Kakuma">Kakuma</option>
+            <option value="Kangari">Kangari</option>
+            <option value="Kangema">Kangema</option>
+            <option value="Kangemi">Kangemi</option>
+            <option value="Kapenguria">Kapenguria</option>
+            <option value="Kapsabet">Kapsabet</option>
+            <option value="Kapsowar Sub Branch">Kapsowar Sub-Branch</option>
+            <option value="Karatina">Karatina</option>
+            <option value="Karen">Karen</option>
+            <option value="Karen Supreme Centre">Karen Supreme Centre</option>
+            <option value="Kariobangi">Kariobangi</option>
+            <option value="Kasarani">Kasarani</option>
+            <option value="Kawangware">Kawangware</option>
+            <option value="Kawangware Sub Branch">Kawangware Sub Branch</option>
+            <option value="Kayole">Kayole</option>
+            <option value="Kengeleni">Kengeleni</option>
+            <option value="Kenol">Kenol</option>
+            <option value="Kenyatta Avenue">Kenyatta Avenue</option>
+            <option value="Kenyatta Avenue Supreme">Kenyatta Avenue Supreme</option>
+            <option value="Kenyatta Market">Kenyatta Market</option>
+            <option value="Kericho">Kericho</option>
+            <option value="Keroka">Keroka</option>
+            <option value="Kerugoya">Kerugoya</option>
+            <option value="Kiambu">Kiambu</option>
+            <option value="Kibera">Kibera</option>
+            <option value="Kibwezi Sub Branch">Kibwezi Sub-Branch</option>
+            <option value="Kikuyu">Kikuyu</option>
+            <option value="Kilgoris">Kilgoris</option>
+            <option value="Kilifi">Kilifi</option>
+            <option value="Kilimani">Kilimani</option>
+            <option value="Kilimani Supreme">Kilimani Supreme</option>
+            <option value="Kimathi Street">Kimathi Street</option>
+            <option value="Kimende">Kimende</option>
+            <option value="Kiriaini">Kiriaini</option>
+            <option value="Kiserian Sub Branch">Kiserian Sub Branch</option>
+            <option value="Kisii">Kisii</option>
+            <option value="Kisumu">Kisumu</option>
+            <option value="Kisumu Angawa Avenue">Kisumu Angawa Avenue</option>
+            <option value="Kisumu Supreme Centre">Kisumu Supreme Centre</option>
+            <option value="Kitale">Kitale</option>
+            <option value="Kitengela">Kitengela</option>
+            <option value="Kitui">Kitui</option>
+            <option value="Knut House">Knut House</option>
+            <option value="KPA Sub-Branch Mombasa">KPA Sub-Branch Mombasa</option>
+            <option value="KPCU">KPCU</option>
+            <option value="KU Sub Branch">KU Sub Branch</option>
+            <option value="Kutus Sub Branch">Kutus Sub-Branch</option>
+            <option value="Kwale">Kwale</option>
+            <option value="Laare">Laare</option>
+            <option value="Lamu">Lamu</option>
+            <option value="Lavington Corporate">Lavington Corporate</option>
+            <option value="Limuru">Limuru</option>
+            <option value="Litein">Litein</option>
+            <option value="Lodwar">Lodwar</option>
+            <option value="Loitoktok">Loitoktok</option>
+            <option value="Luanda">Luanda</option>
+            <option value="Machakos">Machakos</option>
+            <option value="Malaba Town">Malaba Town</option>
+            <option value="Malindi">Malindi</option>
+            <option value="Mama Ngina">Mama Ngina</option>
+            <option value="Mandera">Mandera</option>
+            <option value="Maralal">Maralal</option>
+            <option value="Marsabit">Marsabit</option>
+            <option value="Matuu">Matuu</option>
+            <option value="Maua">Maua</option>
+            <option value="Mayfair Supreme Centre">Mayfair Supreme Centre</option>
+            <option value="Mbale">Mbale</option>
+            <option value="Mbita">Mbita</option>
+            <option value="Meru">Meru</option>
+            <option value="Meru Makutano">Meru Makutano</option>
+            <option value="Migori">Migori</option>
+            <option value="Mlolongo">Mlolongo</option>
+            <option value="Moi Avenue">Moi Avenue</option>
+            <option value="Mombasa">Mombasa</option>
+            <option value="Mombasa Digo Road">Mombasa Digo Road</option>
+            <option value="Mombasa Road">Mombasa Road</option>
+            <option value="Mombasa Supreme Centre">Mombasa Supreme Centre</option>
+            <option value="Moyale">Moyale</option>
+            <option value="Mpeketoni">Mpeketoni</option>
+            <option value="Mtwapa">Mtwapa</option>
+            <option value="Mukurweini">Mukurwe-ini</option>
+            <option value="Mumias">Mumias</option>
+            <option value="Murarandia">Murarandia</option>
+            <option value="Muranga">Muranga</option>
+            <option value="Mutomo">Mutomo</option>
+            <option value="Mwea">Mwea</option>
+            <option value="Mwingi">Mwingi</option>
+            <option value="Nairobi West">Nairobi West</option>
+            <option value="Naivasha">Naivasha</option>
+            <option value="Nakuru">Nakuru</option>
+            <option value="Nakuru Kenyatta Avenue">Nakuru Kenyatta Avenue</option>
+            <option value="Nakuru Westside Mall">Nakuru Westside Mall</option>
+            <option value="Namanga">Namanga</option>
+            <option value="Nandi Hills">Nandi Hills</option>
+            <option value="Nanyuki">Nanyuki</option>
+            <option value="Narok">Narok</option>
+            <option value="Ngara">Ngara</option>
+            <option value="Ngong">Ngong</option>
+            <option value="Njabini">Njabini</option>
+            <option value="Nkubu">Nkubu</option>
+            <option value="Nyahururu">Nyahururu</option>
+            <option value="Nyali Centre Corporate">Nyali Centre Corporate</option>
+            <option value="Nyali Supreme Centre">Nyali Supreme Centre</option>
+            <option value="Nyamira">Nyamira</option>
+            <option value="Nyeri">Nyeri</option>
+            <option value="Nyeri Kimathi Way">Nyeri Kimathi Way</option>
+            <option value="Ol Kalou">Ol Kalou</option>
+            <option value="Ongata Rongai">Ongata Rongai</option>
+            <option value="OTC">OTC</option>
+            <option value="Othaya">Othaya</option>
+            <option value="Oyugis">Oyugis</option>
+            <option value="Ridgeways">Ridgeways</option>
+            <option value="Ruai">Ruai</option>
+            <option value="Ruaka">Ruaka</option>
+            <option value="Ruiru">Ruiru</option>
+            <option value="Rumuruti">Rumuruti</option>
+            <option value="Runyenjes Sub Branch">Runyenjes Sub Branch</option>
+            <option value="Siaya">Siaya</option>
+            <option value="Sotik">Sotik</option>
+            <option value="Taita Taveta">Taita Taveta</option>
+            <option value="Tala">Tala</option>
+            <option value="Tea Room">Tea Room</option>
+            <option value="Thika Equity Plaza">Thika / Equity Plaza</option>
+            <option value="Thika Kenyatta Avenue">Thika Kenyatta Avenue</option>
+            <option value="Thika Makongeni">Thika Makongeni</option>
+            <option value="Thika Supreme Centre">Thika Supreme Centre</option>
+            <option value="Ukunda">Ukunda</option>
+            <option value="Utawala">Utawala</option>
+            <option value="Voi">Voi</option>
+            <option value="Wajir">Wajir</option>
+            <option value="Wangige Sub Branch">Wangige Sub Branch</option>
+            <option value="Westlands">Westlands</option>
+            <option value="Westlands Corporate">Westlands Corporate</option>
+            <option value="Wote">Wote</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="handler">Handler</label>
+          <select id="handler">
+            <option value="Erick">Erick</option>
+            <option value="Grishon">Grishon</option>
+            <option value="Patrick">Patrick</option>
+            <option value="Chrisandos">Chrisandos</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option value="Pending">Pending</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sub-status">Sub-status</label>
+          <select id="sub-status" name="sub_status">
+            <option value="Pending with underwriter">
+              Pending with underwriter
+            </option>
+            <option value="Pending with client">Pending with client</option>
+            <option value="Paid">Paid</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== -->
+    <section class="section-card">
+      <h6 class="section-title">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M6 3.5h9l3 3v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1z"
+          />
+          <path d="M8 9.5h8" />
+          <path d="M8 13h8" />
+          <path d="M8 16.5h5" />
+        </svg>
+        Notes
+      </h6>
+      <div class="field-grid">
+        <div class="field notes-field">
+          <!-- <label for="notes" class="sr-only">Notes</label> -->
+          <textarea id="notes" name="notes"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== -->
+    <section class="section-card">
+      <h6 class="section-title">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="8.5" />
+          <path d="M12 7.5v9" />
+          <path
+            d="M9.3 15c.3 1 1.3 1.6 2.7 1.6 1.7 0 2.7-.8 2.7-1.9 0-1.2-1-1.6-2.7-2-1.7-.4-2.7-.9-2.7-2 0-1.1 1-1.9 2.7-1.9 1.4 0 2.4.6 2.7 1.6"
+          />
+        </svg>
+        Financials &amp; Discharge Voucher
+      </h6>
+      <div class="field-grid">
+        <div class="field">
+          <label for="sum-insured">Loan Amount (Sum Insured)</label>
+          <input
+            id="sum-insured"
+            type="text"
+          />
+        </div>
+        <div class="field">
+          <label for="dv-amount">DV Amount</label>
+          <input
+            id="dv-amount"
+            type="text"
+            name="dv_amount"
+          />
+        </div>
+        <div class="field">
+          <label for="date-dv-issued">Date DV Issued</label>
+          <input
+            id="date-dv-issued"
+            type="date"
+            name="date_dv_issued"
+          />
+        </div>
+        <div class="field">
+          <label for="date-dv-returned">Date DV is Returned</label>
+          <input
+            id="date-dv-returned"
+            type="date"
+            name="date_dv_returned"
+          />
+        </div>
+        <div class="field">
+          <label for="closure-date">Closure Date</label>
+          <input id="closure-date" type="date" name="closure_date" />
+        </div>
+        <div class="field">
+          <label for="amount-paid">Amount Paid</label>
+          <input id="amount-paid" type="text" name="amount_paid" />
+        </div>
+      </div>
+    </section>
+  </form>
+
+  <div class="dialog-btns-box">
+    <span class="footer-hint" id="last-updated"
+      >Last updated automatically on save</span
+    >
+    <div class="footer-buttons">
+      <button type="button" class="cancel-btn" id="cancel-editing-btn">
+        Cancel
+      </button>
+      <button type="button" class="edit-btn" id="edit-btn">Edit</button>
+      <button type="button" class="save-btn" id="save-btn">Save Changes</button>
+    </div>
+  </div>
+</dialog>
+<dialog class="confirm-dialog" id="confirm-dialog">
+  <div class="confirm-dialog-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="24" fill="#EEF3FF" />
+      <g
+        fill="none"
+        stroke="#1D68F0"
+        stroke-width="1.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M 18 13 H 28 L 33 18 V 32 A 3 3 0 0 1 30 35 H 18 A 3 3 0 0 1 15 32 V 16 A 3 3 0 0 1 18 13 Z"
+        />
+        <path d="M 28 13 V 18 H 33" />
+        <line x1="20" y1="22" x2="27" y2="22" />
+        <line x1="20" y1="26" x2="24" y2="26" />
+        <path d="M 27 34 L 35 26 L 37 28 L 29 36 H 27 Z" fill="#EEF3FF" />
+        <line x1="33.5" y1="24.5" x2="36.5" y2="27.5" />
+      </g>
+    </svg>
+    <h2>Confirm changes</h2>
+    <small>Review the changes below before you save them.</small>
+  </div>
+
+  <div class="confirm-dialog-items" id="confirm-dialog-items">
+    <!-- populated dynamically by js -->
+    <!-- <div class="item">
+     <div class="item-header">Notes</div> -->
+    <!-- <div class="item-changes">
+          <span class="value from">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</span>
+          <span class="arrow">&rarr;</span>
+          <span class="value to">Dolore ullam, quibusdam debitis eos qui quo. Reiciendis debitis</span>
+      </div> -->
+  </div>
+  <div class="confirm-dialog-footer">
+    <button class="cancel-confirm-btn" id="cancel-confirm-btn">Cancel</button>
+    <button class="confirm-changes-btn" id="confirm-changes-btn">Confirm changes</button>
+  </div>
+</dialog>
+
+
+
+
+<!-- ===================== ADD NEW CLAIM DIALOG ===================== -->
+
+<dialog id="add-new-claim-dialog" class="add-new-claim-dialog">
+  <!-- Header -->
+  <div class="add-new-claim-header">
+    <div class="add-new-claim-header-left">
+      <span class="add-new-claim-badge">NEW</span>
+      <h3>Add New Claim</h3>
+    </div>
+    <button type="button" class="add-new-claim-close-btn" id="add-new-claim-close-btn" aria-label="Close">
+      ✕
+    </button>
+  </div>
+
+  <!-- Scrollable form body -->
+  <form id="add-new-claim-form" class="add-new-claim-form" enctype="multipart/form-data">
+
+    <!-- ========== Insured & Vehicle ========== -->
+    <section class="add-section-card">
+      <h6 class="add-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 13l1.6-4.8A2 2 0 0 1 6.5 7h11a2 2 0 0 1 1.9 1.2L21 13"/>
+          <path d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+          <circle cx="7.5" cy="16.5" r="1"/><circle cx="16.5" cy="16.5" r="1"/>
+        </svg>
+        Insured &amp; Vehicle
+      </h6>
+      <div class="add-field-grid">
+        <div class="add-field">
+          <label for="add-new-claim-name-of-insured">Name of Insured</label>
+          <input id="add-new-claim-name-of-insured" type="text" name="name_of_insured" required placeholder="Full name">
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-category">Category</label>
+          <input id="add-new-claim-category" type="text" name="category" value="Credit_Life" readonly>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-claim-trigger">Trigger</label>
+          <select id="add-new-claim-claim-triger" name="claim_trigger" data-parent = "credit_life_details" required>
+            <option value="" disabled selected>Select claim trigger</option>
+            <optgroup label="Death">
+              <option value="Death - Natural">Death – Natural Causes</option>
+              <option value="Death - Accident">Death – Accident</option>
+              <option value="Death - Suicide">Death – Suicide</option>
+            </optgroup>
+          
+            <optgroup label="Disability">
+              <option value="Total Permanent Dissability(TPD)">Total Permanent Disability(TPD)</option>
+              <option value="Total Temporary Disability(TTD)">Total Temporary Disability(TTD)</option>
+              <option value="Permanent Partial Disability(PPD)">Permanent Partial Disability(PPD)</option>
+            </optgroup>
+          
+            <optgroup label="Employment / Income">
+              <option value="Retrenchment(Loss of Employment)">Retrenchment / Loss of Employment</option>
+              <option value="Critical Illness">Critical Illness</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-circumstance">Circumstance</label>
+          <select id="add-new-claim-circumstance" name="circumstance" required>
+            <option value="" disabled selected>Select circumstance</option>
+            <optgroup label="Death - Natural Causes">
+              <option value="Cardiac Arrest">Cardiac Arrest</option>
+              <option value="Heart Failure">Heart Failure</option>
+              <option value="Stroke">Stroke</option>
+              <option value="Cancer">Cancer</option>
+              <option value="Diabetes Complications">Diabetes Complications</option>
+              <option value="Kidney Failure">Kidney Failure</option>
+              <option value="Liver Failure">Liver Failure</option>
+              <option value="Organ Failure">Organ Failure</option>
+              <option value="Pneumonia">Pneumonia</option>
+              <option value="Tuberculosis">Tuberculosis</option>
+              <option value="Asthma Complications">Asthma Complications</option>
+              <option value="Malaria">Malaria</option>
+              <option value="Typhoid">Typhoid</option>
+              <option value="COVID-19">COVID-19</option>
+              <option value="Complications from Childbirth">Complications from Childbirth</option>
+              <option value="Old Age">Old Age</option>
+              <option value="Other Terminal Illness">Other Terminal Illness</option>
+            </optgroup>
+          
+            <optgroup label="Death - Accident">
+              <option value="Road Traffic Accident">Road Traffic Accident</option>
+              <option value="Drowning">Drowning</option>
+              <option value="Fire">Fire</option>
+              <option value="Burns">Burns</option>
+              <option value="Fall from Height">Fall from Height</option>
+              <option value="Electrocution">Electrocution</option>
+              <option value="Workplace Accident">Workplace Accident</option>
+              <option value="Industrial Accident">Industrial Accident</option>
+              <option value="Accidental Poisoning">Accidental Poisoning</option>
+              <option value="Animal Attack">Animal Attack</option>
+              <option value="Firearm Accident">Firearm Accident</option>
+              <option value="Other Accidental Death">Other Accidental Death</option>
+            </optgroup>
+          
+            <optgroup label="Death - Suicide">
+              <option value="Confirmed Suicide">Confirmed Suicide</option>
+              <option value="Suicide During Mental Health Crisis">Suicide During Mental Health Crisis</option>
+              <option value="Self-Inflicted Death Pending Investigation">Self-Inflicted Death Pending Investigation</option>
+            </optgroup>
+          
+            <optgroup label="Total Permanent Disability (TPD)">
+              <option value="Loss of Both Limbs">Loss of Both Limbs</option>
+              <option value="Loss of Sight">Loss of Sight (Both Eyes)</option>
+              <option value="Loss of Hearing">Loss of Hearing (Both Ears)</option>
+              <option value="Paraplegia">Paraplegia</option>
+              <option value="Quadriplegia">Quadriplegia</option>
+              <option value="Severe Traumatic Brain Injury">Severe Traumatic Brain Injury</option>
+              <option value="Loss of Speech">Loss of Speech</option>
+              <option value="Major Organ Failure Lifelong Care">Major Organ Failure Requiring Lifelong Care</option>
+              <option value="Severe Stroke">Severe Stroke</option>
+              <option value="Other Permanent Incapacitating Condition">Other Permanent Incapacitating Condition</option>
+            </optgroup>
+          
+            <optgroup label="Total Temporary Disability (TTD)">
+              <option value="Fracture Requiring Extended Recovery">Fracture Requiring Extended Recovery</option>
+              <option value="Post-Surgery Recovery Period">Post-Surgery Recovery Period</option>
+              <option value="Illness Requiring Hospitalization">Illness Requiring Hospitalization</option>
+              <option value="Bed Rest Due to Illness">Bed Rest Due to Illness</option>
+              <option value="Temporary Loss of Mobility">Temporary Loss of Mobility</option>
+              <option value="Non-Permanent Injury from Accident">Non-Permanent Injury from Accident</option>
+              <option value="Temporary Mental Health Incapacity">Temporary Mental Health Incapacity</option>
+              <option value="Maternity-Related Complication">Maternity-Related Complication</option>
+            </optgroup>
+          
+            <optgroup label="Permanent Partial Disability (PPD)">
+              <option value="Loss of One Limb">Loss of One Limb</option>
+              <option value="Loss of One Eye">Loss of One Eye</option>
+              <option value="Loss of Fingers">Loss of Fingers</option>
+              <option value="Loss of Toes">Loss of Toes</option>
+              <option value="Partial Hearing Loss">Partial Hearing Loss</option>
+              <option value="Facial Disfigurement">Facial Disfigurement</option>
+              <option value="Partial Loss of Mobility">Partial Loss of Mobility</option>
+              <option value="Partial Loss of Function">Partial Loss of Function</option>
+            </optgroup>
+          
+            <optgroup label="Retrenchment (Loss of Employment)">
+              <option value="Company Restructuring">Company Restructuring</option>
+              <option value="Company Downsizing">Company Downsizing</option>
+              <option value="Redundancy">Redundancy</option>
+              <option value="Company Closure">Company Closure</option>
+              <option value="Company Liquidation">Company Liquidation</option>
+              <option value="Contract Non-Renewal">Contract Non-Renewal</option>
+              <option value="Termination Due to Economic Hardship">Termination Due to Economic Hardship</option>
+              <option value="Merger-Related Layoff">Merger-Related Layoff</option>
+              <option value="Acquisition-Related Layoff">Acquisition-Related Layoff</option>
+            </optgroup>
+          
+            <optgroup label="Critical Illness">
+              <option value="Cancer">Cancer</option>
+              <option value="Stroke">Stroke</option>
+              <option value="Heart Attack">Heart Attack (Myocardial Infarction)</option>
+              <option value="Kidney Failure">Kidney Failure</option>
+              <option value="Major Organ Transplant">Major Organ Transplant</option>
+              <option value="Coronary Artery Bypass Surgery">Coronary Artery Bypass Surgery</option>
+              <option value="Multiple Sclerosis">Multiple Sclerosis</option>
+              <option value="Paralysis Due to Illness">Paralysis Due to Illness</option>
+              <option value="Blindness Due to Illness">Blindness Due to Illness</option>
+              <option value="Coma">Coma</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Dates & Documentation ========== -->
+    <section class="add-section-card">
+      <h6 class="add-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3.5" y="4.5" width="17" height="16" rx="2"/>
+          <path d="M3.5 9.5h17"/><path d="M8 3v3"/><path d="M16 3v3"/>
+          <path d="M8.5 13.5l2 2 4.5-4.5"/>
+        </svg>
+        Dates &amp; Documentation
+      </h6>
+      <div class="add-field-grid">
+        <div class="add-field">
+          <label for="add-new-claim-intimation-date">Intimation Date</label>
+          <input id="add-new-claim-intimation-date" type="date" name="intimation_date" required>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-date-of-loss">Date of Loss</label>
+          <input id="add-new-claim-date-of-loss" type="date" name="date_of_loss" required>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-documented">Documented?</label>
+          <select id="add-new-claim-documented" name="documented">
+            <option value="" selected disabled>Is it Documented?</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-date-fully-documented">Date Fully Documented</label>
+          <input id="add-new-claim-date-fully-documented" type="date" name="date_fully_documented" required>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Handling ========== -->
+    <section class="add-section-card">
+      <h6 class="add-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="3.2"/>
+          <path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/>
+          <path d="M18.5 5.5l1.2 1.2"/><path d="M20.2 4.3l.9.9-.9.9-.9-.9z"/>
+        </svg>
+        Handling
+      </h6>
+      <div class="add-field-grid">
+        <div class="add-field">
+          <label for="add-new-claim-underwriter">Underwriter</label>
+          <select id="add-new-claim-underwriter" name="underwriter" required>
+            <option value="" disabled selected>Select underwriter…</option>
+            <option value="Jubilee Allianz">Jubilee Allianz</option>
+            <option value="AAR Insurance">AAR Insurance</option>
+            <option value="APA Insurance">APA Insurance</option>
+            <option value="Britam General Insurance">Britam General Insurance</option>
+            <option value="CIC General Insurance">CIC General Insurance</option>
+            <option value="Kenindia Assurance">Kenindia Assurance</option>
+            <option value="Madison General Insurance">Madison General Insurance</option>
+            <option value="ICEA LION General Insurance">ICEA LION General Insurance</option>
+            <option value="Heritage Insurance">Heritage Insurance</option>
+            <option value="GA Insurance">GA Insurance</option>
+            <option value="Sanlam General Insurance">Sanlam General Insurance</option>
+            <option value="Old Mutual General Insurance">Old Mutual General Insurance</option>
+            <option value="Directline Assurance">Directline Assurance</option>
+            <option value="First Assurance">First Assurance</option>
+            <option value="Occidental Insurance">Occidental Insurance</option>
+            <option value="Kenya Orient Insurance">Kenya Orient Insurance</option>
+            <option value="Mayfair Insurance">Mayfair Insurance</option>
+            <option value="Geminia Insurance">Geminia Insurance</option>
+            <option value="Trident Insurance">Trident Insurance</option>
+            <option value="Fidelity Shield Insurance">Fidelity Shield Insurance</option>
+            <option value="Cannon General Insurance">Cannon General Insurance</option>
+            <option value="Amaco">Amaco</option>
+            <option value="Invesco Assurance">Invesco Assurance</option>
+            <option value="Xplico Insurance">Xplico Insurance</option>
+          </select>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-branch">Branch</label>
+          <select id="add-new-claim-branch" name="branch" required>
+            <option value="" disabled selected>Select branch…</option>
+            <option value="EBIL Head Office">EBIL Head Office</option>
+            <option value="Corporate Fourways">Corporate Fourways</option>
+            <option value="Archers Post">Archers Post</option>
+            <option value="Awendo">Awendo</option>
+            <option value="Bomet">Bomet</option>
+            <option value="Bondo">Bondo</option>
+            <option value="Bungoma">Bungoma</option>
+            <option value="Buru Buru">Buru Buru</option>
+            <option value="Busia">Busia</option>
+            <option value="Chaka">Chaka</option>
+            <option value="Changamwe">Changamwe</option>
+            <option value="Chuka">Chuka</option>
+            <option value="City Hall">City Hall</option>
+            <option value="Community">Community</option>
+            <option value="Community Corporate">Community Corporate</option>
+            <option value="Dadaab">Dadaab</option>
+            <option value="Dagoretti Corner">Dagoretti Corner</option>
+            <option value="Donholm">Donholm</option>
+            <option value="Eastleigh">Eastleigh</option>
+            <option value="Eldama Ravine">Eldama Ravine</option>
+            <option value="Eldoret">Eldoret</option>
+            <option value="Eldoret Market">Eldoret Market</option>
+            <option value="Eldoret Supreme Centre">Eldoret Supreme Centre</option>
+            <option value="Emali">Emali</option>
+            <option value="Embakasi">Embakasi</option>
+            <option value="Embassy House">Embassy House</option>
+            <option value="Embu">Embu</option>
+            <option value="Engineer">Engineer</option>
+            <option value="Enterprise Road">Enterprise Road</option>
+            <option value="EPZ Athi River">EPZ Athi River</option>
+            <option value="Equity Centre">Equity Centre</option>
+            <option value="Equity Centre Diaspora">Equity Centre Diaspora</option>
+            <option value="Equity Hapo Hapo">Equity Hapo Hapo</option>
+            <option value="Fourways">Fourways</option>
+            <option value="Garden City">Garden City</option>
+            <option value="Garissa">Garissa</option>
+            <option value="Gatundu">Gatundu</option>
+            <option value="Gigiri Supreme Centre">Gigiri Supreme Centre</option>
+            <option value="Gikomba">Gikomba</option>
+            <option value="Gilgil">Gilgil</option>
+            <option value="Githunguri">Githunguri</option>
+            <option value="Githurai">Githurai</option>
+            <option value="Harambee Avenue">Harambee Avenue</option>
+            <option value="Hola">Hola</option>
+            <option value="Homa Bay">Homa Bay</option>
+            <option value="Industrial Area Kenpipe Plaza">Industrial Area (Kenpipe Plaza)</option>
+            <option value="Inland Container Depot Embakasi">Inland Container Depot (ICD) Embakasi</option>
+            <option value="Isibania">Isibania</option>
+            <option value="Isinya">Isinya</option>
+            <option value="Isiolo">Isiolo</option>
+            <option value="Iten">Iten</option>
+            <option value="JKIA Cargo Centre">JKIA Cargo Centre</option>
+            <option value="Juja">Juja</option>
+            <option value="Kabarnet">Kabarnet</option>
+            <option value="Kagio">Kagio</option>
+            <option value="Kagwe Sub Branch">Kagwe Sub Branch</option>
+            <option value="Kahawa West">Kahawa West</option>
+            <option value="Kajiado">Kajiado</option>
+            <option value="Kakamega">Kakamega</option>
+            <option value="Kakuma">Kakuma</option>
+            <option value="Kangari">Kangari</option>
+            <option value="Kangema">Kangema</option>
+            <option value="Kangemi">Kangemi</option>
+            <option value="Kapenguria">Kapenguria</option>
+            <option value="Kapsabet">Kapsabet</option>
+            <option value="Kapsowar Sub Branch">Kapsowar Sub-Branch</option>
+            <option value="Karatina">Karatina</option>
+            <option value="Karen">Karen</option>
+            <option value="Karen Supreme Centre">Karen Supreme Centre</option>
+            <option value="Kariobangi">Kariobangi</option>
+            <option value="Kasarani">Kasarani</option>
+            <option value="Kawangware">Kawangware</option>
+            <option value="Kawangware Sub Branch">Kawangware Sub Branch</option>
+            <option value="Kayole">Kayole</option>
+            <option value="Kengeleni">Kengeleni</option>
+            <option value="Kenol">Kenol</option>
+            <option value="Kenyatta Avenue">Kenyatta Avenue</option>
+            <option value="Kenyatta Avenue Supreme">Kenyatta Avenue Supreme</option>
+            <option value="Kenyatta Market">Kenyatta Market</option>
+            <option value="Kericho">Kericho</option>
+            <option value="Keroka">Keroka</option>
+            <option value="Kerugoya">Kerugoya</option>
+            <option value="Kiambu">Kiambu</option>
+            <option value="Kibera">Kibera</option>
+            <option value="Kibwezi Sub Branch">Kibwezi Sub-Branch</option>
+            <option value="Kikuyu">Kikuyu</option>
+            <option value="Kilgoris">Kilgoris</option>
+            <option value="Kilifi">Kilifi</option>
+            <option value="Kilimani">Kilimani</option>
+            <option value="Kilimani Supreme">Kilimani Supreme</option>
+            <option value="Kimathi Street">Kimathi Street</option>
+            <option value="Kimende">Kimende</option>
+            <option value="Kiriaini">Kiriaini</option>
+            <option value="Kiserian Sub Branch">Kiserian Sub Branch</option>
+            <option value="Kisii">Kisii</option>
+            <option value="Kisumu">Kisumu</option>
+            <option value="Kisumu Angawa Avenue">Kisumu Angawa Avenue</option>
+            <option value="Kisumu Supreme Centre">Kisumu Supreme Centre</option>
+            <option value="Kitale">Kitale</option>
+            <option value="Kitengela">Kitengela</option>
+            <option value="Kitui">Kitui</option>
+            <option value="Knut House">Knut House</option>
+            <option value="KPA Sub-Branch Mombasa">KPA Sub-Branch Mombasa</option>
+            <option value="KPCU">KPCU</option>
+            <option value="KU Sub Branch">KU Sub Branch</option>
+            <option value="Kutus Sub Branch">Kutus Sub-Branch</option>
+            <option value="Kwale">Kwale</option>
+            <option value="Laare">Laare</option>
+            <option value="Lamu">Lamu</option>
+            <option value="Lavington Corporate">Lavington Corporate</option>
+            <option value="Limuru">Limuru</option>
+            <option value="Litein">Litein</option>
+            <option value="Lodwar">Lodwar</option>
+            <option value="Loitoktok">Loitoktok</option>
+            <option value="Luanda">Luanda</option>
+            <option value="Machakos">Machakos</option>
+            <option value="Malaba Town">Malaba Town</option>
+            <option value="Malindi">Malindi</option>
+            <option value="Mama Ngina">Mama Ngina</option>
+            <option value="Mandera">Mandera</option>
+            <option value="Maralal">Maralal</option>
+            <option value="Marsabit">Marsabit</option>
+            <option value="Matuu">Matuu</option>
+            <option value="Maua">Maua</option>
+            <option value="Mayfair Supreme Centre">Mayfair Supreme Centre</option>
+            <option value="Mbale">Mbale</option>
+            <option value="Mbita">Mbita</option>
+            <option value="Meru">Meru</option>
+            <option value="Meru Makutano">Meru Makutano</option>
+            <option value="Migori">Migori</option>
+            <option value="Mlolongo">Mlolongo</option>
+            <option value="Moi Avenue">Moi Avenue</option>
+            <option value="Mombasa">Mombasa</option>
+            <option value="Mombasa Digo Road">Mombasa Digo Road</option>
+            <option value="Mombasa Road">Mombasa Road</option>
+            <option value="Mombasa Supreme Centre">Mombasa Supreme Centre</option>
+            <option value="Moyale">Moyale</option>
+            <option value="Mpeketoni">Mpeketoni</option>
+            <option value="Mtwapa">Mtwapa</option>
+            <option value="Mukurweini">Mukurwe-ini</option>
+            <option value="Mumias">Mumias</option>
+            <option value="Murarandia">Murarandia</option>
+            <option value="Muranga">Muranga</option>
+            <option value="Mutomo">Mutomo</option>
+            <option value="Mwea">Mwea</option>
+            <option value="Mwingi">Mwingi</option>
+            <option value="Nairobi West">Nairobi West</option>
+            <option value="Naivasha">Naivasha</option>
+            <option value="Nakuru">Nakuru</option>
+            <option value="Nakuru Kenyatta Avenue">Nakuru Kenyatta Avenue</option>
+            <option value="Nakuru Westside Mall">Nakuru Westside Mall</option>
+            <option value="Namanga">Namanga</option>
+            <option value="Nandi Hills">Nandi Hills</option>
+            <option value="Nanyuki">Nanyuki</option>
+            <option value="Narok">Narok</option>
+            <option value="Ngara">Ngara</option>
+            <option value="Ngong">Ngong</option>
+            <option value="Njabini">Njabini</option>
+            <option value="Nkubu">Nkubu</option>
+            <option value="Nyahururu">Nyahururu</option>
+            <option value="Nyali Centre Corporate">Nyali Centre Corporate</option>
+            <option value="Nyali Supreme Centre">Nyali Supreme Centre</option>
+            <option value="Nyamira">Nyamira</option>
+            <option value="Nyeri">Nyeri</option>
+            <option value="Nyeri Kimathi Way">Nyeri Kimathi Way</option>
+            <option value="Ol Kalou">Ol Kalou</option>
+            <option value="Ongata Rongai">Ongata Rongai</option>
+            <option value="OTC">OTC</option>
+            <option value="Othaya">Othaya</option>
+            <option value="Oyugis">Oyugis</option>
+            <option value="Ridgeways">Ridgeways</option>
+            <option value="Ruai">Ruai</option>
+            <option value="Ruaka">Ruaka</option>
+            <option value="Ruiru">Ruiru</option>
+            <option value="Rumuruti">Rumuruti</option>
+            <option value="Runyenjes Sub Branch">Runyenjes Sub Branch</option>
+            <option value="Siaya">Siaya</option>
+            <option value="Sotik">Sotik</option>
+            <option value="Taita Taveta">Taita Taveta</option>
+            <option value="Tala">Tala</option>
+            <option value="Tea Room">Tea Room</option>
+            <option value="Thika Equity Plaza">Thika / Equity Plaza</option>
+            <option value="Thika Kenyatta Avenue">Thika Kenyatta Avenue</option>
+            <option value="Thika Makongeni">Thika Makongeni</option>
+            <option value="Thika Supreme Centre">Thika Supreme Centre</option>
+            <option value="Ukunda">Ukunda</option>
+            <option value="Utawala">Utawala</option>
+            <option value="Voi">Voi</option>
+            <option value="Wajir">Wajir</option>
+            <option value="Wangige Sub Branch">Wangige Sub Branch</option>
+            <option value="Westlands">Westlands</option>
+            <option value="Westlands Corporate">Westlands Corporate</option>
+            <option value="Wote">Wote</option>
+          </select>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-handler">Handler</label>
+          <select id="add-new-claim-handler" name="handler" required>
+            <option value="" disabled selected>Select handler…</option>
+            <option value="Erick">Erick</option>
+            <option value="Grishon">Grishon</option>
+            <option value="Patrick">Patrick</option>
+            <option value="Chrisandos">Chrisandos</option>
+          </select>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-status">Status</label>
+          <select id="add-new-claim-status" name="status" required>
+            <option value="" disabled selected>Select status…</option>
+            <option value="Pending">Pending</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-sub-status">Sub-status</label>
+          <select id="add-new-claim-sub-status" name="sub_status" required>
+          <!-- to be filled dynamically based on the selected status -->
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Notes ========== -->
+    <section class="add-section-card">
+      <h6 class="add-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3.5h9l3 3v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1z"/>
+          <path d="M8 9.5h8"/><path d="M8 13h8"/><path d="M8 16.5h5"/>
+        </svg>
+        Notes
+      </h6>
+      <div class="add-field-grid">
+        <div class="add-field add-notes-field">
+          <textarea id="add-new-claim-notes" name="notes" placeholder="Any additional remarks…"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Financials ========== -->
+    <section class="add-section-card">
+      <h6 class="add-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="8.5"/>
+          <path d="M12 7.5v9"/>
+          <path d="M9.3 15c.3 1 1.3 1.6 2.7 1.6 1.7 0 2.7-.8 2.7-1.9 0-1.2-1-1.6-2.7-2-1.7-.4-2.7-.9-2.7-2 0-1.1 1-1.9 2.7-1.9 1.4 0 2.4.6 2.7 1.6"/>
+        </svg>
+        Financials &amp; Discharge Voucher
+      </h6>
+      <div class="add-field-grid">
+        <div class="add-field">
+          <label for="add-new-claim-sum-insured">Loan Amount(Sum Insured)</label>
+          <input id="add-new-claim-sum-insured" type="text" name="sum_insured" placeholder="0.00" required>
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-dv-amount">DV Amount</label>
+          <input id="add-new-claim-dv-amount" type="text" name="dv_amount" placeholder="0.00">
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-date-dv-issued">Date DV Issued</label>
+          <input id="add-new-claim-date-dv-issued" type="date" name="date_dv_issued">
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-date-dv-returned">Date DV is Returned</label>
+          <input id="add-new-claim-date-dv-returned" type="date" name="date_dv_returned">
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-closure-date">Closure Date</label>
+          <input id="add-new-claim-closure-date" type="date" name="closure_date">
+        </div>
+        <div class="add-field">
+          <label for="add-new-claim-amount-paid">Amount Paid</label>
+          <input id="add-new-claim-amount-paid" type="text" name="amount_paid" placeholder="0.00">
+        </div>
+      </div>
+    </section>
+
+    <!-- Single Save button – forces scroll to bottom -->
+    <div class="add-new-claim-save-wrap">
+      <button type="submit" class="add-new-claim-save-btn" id="submit-new-claim-btn">
+        Save the Claim
+      </button>
+    </div>
+  </form>
+</dialog>
+
+
+{% endblock content %}
+
+

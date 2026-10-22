@@ -1,0 +1,1663 @@
+{% extends "master_template.html" %}
+{% load static %}
+{% block title %}Reports&Analysis | Claims Data{% endblock title %}
+
+{% block static_links %}
+<link rel="stylesheet" href="{% static 'claim_handling/reports_claims_data_page.css' %}">
+<script src="{% static 'claim_handling/reports_claims_data_page.js' %}" defer></script>
+{% endblock static_links %}
+
+{% block content %}
+
+<div class="reports-major-container">
+    <h2>Reports & Analysis</h2>
+    <small style="color: #8191a8e2; font-style: italic">Reports & Analysis > Claims Data</small>
+    <nav class="reports-navigation-bar">
+        <ul>
+            <li><a href='{% url "reports_underwriter_performance_page" %}'>Underwriter Performance</a></li>
+            <li><a href='{% url "reports_claims_data_page" %}' style="border-bottom: 2px solid #faae0ce2;">Claims Data</a></li>
+            <li><a href='{% url "reports_trends_page" %}'>Trends</a></li>
+        </ul>
+    </nav>
+
+    <div class="table-divs total-claims-div">
+        <div class="filtering-elements-box">
+            <div style="background-color: transparent; border: none;">
+                <h4>Total Claims</h4>
+            </div>
+            <div>
+                <h5 id="total-claims-count">-</h5>
+
+            </div>
+            <div style="position: relative; display: flex; align-items: center;">
+                <span
+                    style="pointer-events: none; position: absolute; left: 0.4rem; font-size: 0.7rem; opacity: 0.6;">🔍</span>
+                <input type="text" id="total-claims-search" placeholder="Search by client...">
+            </div>
+            <div>
+                <select id="total-claims-status-filter">
+                    <option value="" selected>All statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Closed">Closed</option>
+                </select>
+            </div>
+            <div>
+                <select id="total-claims-branch-filter">
+                    <option value="" selected>All Branches</option>
+                    <option value="EBIL Head Office">EBIL Head Office</option>
+                    <option value="Corporate Fourways">Corporate Fourways</option>
+                    <option value="Archers Post">Archers Post</option>
+                    <option value="Awendo">Awendo</option>
+                    <option value="Bomet">Bomet</option>
+                    <option value="Bondo">Bondo</option>
+                    <option value="Bungoma">Bungoma</option>
+                    <option value="Buru Buru">Buru Buru</option>
+                    <option value="Busia">Busia</option>
+                    <option value="Chaka">Chaka</option>
+                    <option value="Changamwe">Changamwe</option>
+                    <option value="Chuka">Chuka</option>
+                    <option value="City Hall">City Hall</option>
+                    <option value="Community">Community</option>
+                    <option value="Community Corporate">Community Corporate</option>
+                    <option value="Dadaab">Dadaab</option>
+                    <option value="Dagoretti Corner">Dagoretti Corner</option>
+                    <option value="Donholm">Donholm</option>
+                    <option value="Eastleigh">Eastleigh</option>
+                    <option value="Eldama Ravine">Eldama Ravine</option>
+                    <option value="Eldoret">Eldoret</option>
+                    <option value="Eldoret Market">Eldoret Market</option>
+                    <option value="Eldoret Supreme Centre">Eldoret Supreme Centre</option>
+                    <option value="Emali">Emali</option>
+                    <option value="Embakasi">Embakasi</option>
+                    <option value="Embassy House">Embassy House</option>
+                    <option value="Embu">Embu</option>
+                    <option value="Engineer">Engineer</option>
+                    <option value="Enterprise Road">Enterprise Road</option>
+                    <option value="EPZ Athi River">EPZ Athi River</option>
+                    <option value="Equity Centre">Equity Centre</option>
+                    <option value="Equity Centre Diaspora">Equity Centre Diaspora</option>
+                    <option value="Equity Hapo Hapo">Equity Hapo Hapo</option>
+                    <option value="Fourways">Fourways</option>
+                    <option value="Garden City">Garden City</option>
+                    <option value="Garissa">Garissa</option>
+                    <option value="Gatundu">Gatundu</option>
+                    <option value="Gigiri Supreme Centre">Gigiri Supreme Centre</option>
+                    <option value="Gikomba">Gikomba</option>
+                    <option value="Gilgil">Gilgil</option>
+                    <option value="Githunguri">Githunguri</option>
+                    <option value="Githurai">Githurai</option>
+                    <option value="Harambee Avenue">Harambee Avenue</option>
+                    <option value="Hola">Hola</option>
+                    <option value="Homa Bay">Homa Bay</option>
+                    <option value="Industrial Area Kenpipe Plaza">Industrial Area (Kenpipe Plaza)</option>
+                    <option value="Inland Container Depot Embakasi">Inland Container Depot (ICD) Embakasi</option>
+                    <option value="Isibania">Isibania</option>
+                    <option value="Isinya">Isinya</option>
+                    <option value="Isiolo">Isiolo</option>
+                    <option value="Iten">Iten</option>
+                    <option value="JKIA Cargo Centre">JKIA Cargo Centre</option>
+                    <option value="Juja">Juja</option>
+                    <option value="Kabarnet">Kabarnet</option>
+                    <option value="Kagio">Kagio</option>
+                    <option value="Kagwe Sub Branch">Kagwe Sub Branch</option>
+                    <option value="Kahawa West">Kahawa West</option>
+                    <option value="Kajiado">Kajiado</option>
+                    <option value="Kakamega">Kakamega</option>
+                    <option value="Kakuma">Kakuma</option>
+                    <option value="Kangari">Kangari</option>
+                    <option value="Kangema">Kangema</option>
+                    <option value="Kangemi">Kangemi</option>
+                    <option value="Kapenguria">Kapenguria</option>
+                    <option value="Kapsabet">Kapsabet</option>
+                    <option value="Kapsowar Sub Branch">Kapsowar Sub-Branch</option>
+                    <option value="Karatina">Karatina</option>
+                    <option value="Karen">Karen</option>
+                    <option value="Karen Supreme Centre">Karen Supreme Centre</option>
+                    <option value="Kariobangi">Kariobangi</option>
+                    <option value="Kasarani">Kasarani</option>
+                    <option value="Kawangware">Kawangware</option>
+                    <option value="Kawangware Sub Branch">Kawangware Sub Branch</option>
+                    <option value="Kayole">Kayole</option>
+                    <option value="Kengeleni">Kengeleni</option>
+                    <option value="Kenol">Kenol</option>
+                    <option value="Kenyatta Avenue">Kenyatta Avenue</option>
+                    <option value="Kenyatta Avenue Supreme">Kenyatta Avenue Supreme</option>
+                    <option value="Kenyatta Market">Kenyatta Market</option>
+                    <option value="Kericho">Kericho</option>
+                    <option value="Keroka">Keroka</option>
+                    <option value="Kerugoya">Kerugoya</option>
+                    <option value="Kiambu">Kiambu</option>
+                    <option value="Kibera">Kibera</option>
+                    <option value="Kibwezi Sub Branch">Kibwezi Sub-Branch</option>
+                    <option value="Kikuyu">Kikuyu</option>
+                    <option value="Kilgoris">Kilgoris</option>
+                    <option value="Kilifi">Kilifi</option>
+                    <option value="Kilimani">Kilimani</option>
+                    <option value="Kilimani Supreme">Kilimani Supreme</option>
+                    <option value="Kimathi Street">Kimathi Street</option>
+                    <option value="Kimende">Kimende</option>
+                    <option value="Kiriaini">Kiriaini</option>
+                    <option value="Kiserian Sub Branch">Kiserian Sub Branch</option>
+                    <option value="Kisii">Kisii</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Kisumu Angawa Avenue">Kisumu Angawa Avenue</option>
+                    <option value="Kisumu Supreme Centre">Kisumu Supreme Centre</option>
+                    <option value="Kitale">Kitale</option>
+                    <option value="Kitengela">Kitengela</option>
+                    <option value="Kitui">Kitui</option>
+                    <option value="Knut House">Knut House</option>
+                    <option value="KPA Sub-Branch Mombasa">KPA Sub-Branch Mombasa</option>
+                    <option value="KPCU">KPCU</option>
+                    <option value="KU Sub Branch">KU Sub Branch</option>
+                    <option value="Kutus Sub Branch">Kutus Sub-Branch</option>
+                    <option value="Kwale">Kwale</option>
+                    <option value="Laare">Laare</option>
+                    <option value="Lamu">Lamu</option>
+                    <option value="Lavington Corporate">Lavington Corporate</option>
+                    <option value="Limuru">Limuru</option>
+                    <option value="Litein">Litein</option>
+                    <option value="Lodwar">Lodwar</option>
+                    <option value="Loitoktok">Loitoktok</option>
+                    <option value="Luanda">Luanda</option>
+                    <option value="Machakos">Machakos</option>
+                    <option value="Malaba Town">Malaba Town</option>
+                    <option value="Malindi">Malindi</option>
+                    <option value="Mama Ngina">Mama Ngina</option>
+                    <option value="Mandera">Mandera</option>
+                    <option value="Maralal">Maralal</option>
+                    <option value="Marsabit">Marsabit</option>
+                    <option value="Matuu">Matuu</option>
+                    <option value="Maua">Maua</option>
+                    <option value="Mayfair Supreme Centre">Mayfair Supreme Centre</option>
+                    <option value="Mbale">Mbale</option>
+                    <option value="Mbita">Mbita</option>
+                    <option value="Meru">Meru</option>
+                    <option value="Meru Makutano">Meru Makutano</option>
+                    <option value="Migori">Migori</option>
+                    <option value="Mlolongo">Mlolongo</option>
+                    <option value="Moi Avenue">Moi Avenue</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Mombasa Digo Road">Mombasa Digo Road</option>
+                    <option value="Mombasa Road">Mombasa Road</option>
+                    <option value="Mombasa Supreme Centre">Mombasa Supreme Centre</option>
+                    <option value="Moyale">Moyale</option>
+                    <option value="Mpeketoni">Mpeketoni</option>
+                    <option value="Mtwapa">Mtwapa</option>
+                    <option value="Mukurweini">Mukurwe-ini</option>
+                    <option value="Mumias">Mumias</option>
+                    <option value="Murarandia">Murarandia</option>
+                    <option value="Muranga">Muranga</option>
+                    <option value="Mutomo">Mutomo</option>
+                    <option value="Mwea">Mwea</option>
+                    <option value="Mwingi">Mwingi</option>
+                    <option value="Nairobi West">Nairobi West</option>
+                    <option value="Naivasha">Naivasha</option>
+                    <option value="Nakuru">Nakuru</option>
+                    <option value="Nakuru Kenyatta Avenue">Nakuru Kenyatta Avenue</option>
+                    <option value="Nakuru Westside Mall">Nakuru Westside Mall</option>
+                    <option value="Namanga">Namanga</option>
+                    <option value="Nandi Hills">Nandi Hills</option>
+                    <option value="Nanyuki">Nanyuki</option>
+                    <option value="Narok">Narok</option>
+                    <option value="Ngara">Ngara</option>
+                    <option value="Ngong">Ngong</option>
+                    <option value="Njabini">Njabini</option>
+                    <option value="Nkubu">Nkubu</option>
+                    <option value="Nyahururu">Nyahururu</option>
+                    <option value="Nyali Centre Corporate">Nyali Centre Corporate</option>
+                    <option value="Nyali Supreme Centre">Nyali Supreme Centre</option>
+                    <option value="Nyamira">Nyamira</option>
+                    <option value="Nyeri">Nyeri</option>
+                    <option value="Nyeri Kimathi Way">Nyeri Kimathi Way</option>
+                    <option value="Ol Kalou">Ol Kalou</option>
+                    <option value="Ongata Rongai">Ongata Rongai</option>
+                    <option value="OTC">OTC</option>
+                    <option value="Othaya">Othaya</option>
+                    <option value="Oyugis">Oyugis</option>
+                    <option value="Ridgeways">Ridgeways</option>
+                    <option value="Ruai">Ruai</option>
+                    <option value="Ruaka">Ruaka</option>
+                    <option value="Ruiru">Ruiru</option>
+                    <option value="Rumuruti">Rumuruti</option>
+                    <option value="Runyenjes Sub Branch">Runyenjes Sub Branch</option>
+                    <option value="Siaya">Siaya</option>
+                    <option value="Sotik">Sotik</option>
+                    <option value="Taita Taveta">Taita Taveta</option>
+                    <option value="Tala">Tala</option>
+                    <option value="Tea Room">Tea Room</option>
+                    <option value="Thika Equity Plaza">Thika / Equity Plaza</option>
+                    <option value="Thika Kenyatta Avenue">Thika Kenyatta Avenue</option>
+                    <option value="Thika Makongeni">Thika Makongeni</option>
+                    <option value="Thika Supreme Centre">Thika Supreme Centre</option>
+                    <option value="Ukunda">Ukunda</option>
+                    <option value="Utawala">Utawala</option>
+                    <option value="Voi">Voi</option>
+                    <option value="Wajir">Wajir</option>
+                    <option value="Wangige Sub Branch">Wangige Sub Branch</option>
+                    <option value="Westlands">Westlands</option>
+                    <option value="Westlands Corporate">Westlands Corporate</option>
+                    <option value="Wote">Wote</option>
+                </select>
+            </div>
+            <div>
+                <select id="total-claims-handler-filter">
+                    <option value="" selected>All Handlers</option>
+                    <option value="Erick">Erick</option>
+                    <option value="Grishon">Grishon</option>
+                    <option value="Patrick">Patrick</option>
+                    <option value="Chrisandos">Chrisandos</option>
+                </select>
+            </div>
+            <div>
+                <select id="total-claims-underwriter-filter">
+                    <option value="" selected>All Underwriters</option>
+                    <option value="Jubilee Allianz">Jubilee Allianz</option>
+                    <option value="AAR Insurance">AAR Insurance</option>
+                    <option value="APA Insurance">APA Insurance</option>
+                    <option value="Britam General Insurance">
+                        Britam General Insurance
+                    </option>
+                    <option value="CIC General Insurance">CIC General Insurance</option>
+                    <option value="Kenindia Assurance">Kenindia Assurance</option>
+                    <option value="Madison General Insurance">
+                        Madison General Insurance
+                    </option>
+                    <option value="ICEA LION General Insurance">
+                        ICEA LION General Insurance
+                    </option>
+                    <option value="Heritage Insurance">Heritage Insurance</option>
+                    <option value="GA Insurance">GA Insurance</option>
+                    <option value="Sanlam General Insurance">
+                        Sanlam General Insurance
+                    </option>
+                    <option value="Old Mutual General Insurance">
+                        Old Mutual General Insurance
+                    </option>
+                    <option value="Directline Assurance">Directline Assurance</option>
+                    <option value="First Assurance">First Assurance</option>
+                    <option value="Occidental Insurance">Occidental Insurance</option>
+                    <option value="Kenya Orient Insurance">
+                        Kenya Orient Insurance
+                    </option>
+                    <option value="Mayfair Insurance">Mayfair Insurance</option>
+                    <option value="Geminia Insurance">Geminia Insurance</option>
+                    <option value="Trident Insurance">Trident Insurance</option>
+                    <option value="Fidelity Shield Insurance">
+                        Fidelity Shield Insurance
+                    </option>
+                    <option value="Cannon General Insurance">
+                        Cannon General Insurance
+                    </option>
+                    <option value="Amaco">Amaco</option>
+                    <option value="Invesco Assurance">Invesco Assurance</option>
+                    <option value="Xplico Insurance">Xplico Insurance</option>
+                </select>
+            </div>
+            <div>
+                <select id="total-claims-category-filter">
+                    <option value="" selected>All Categories</option>
+                    <option value="Motor">Motor</option>
+                    <option value="Non_Motor">Non-Motor</option>
+                    <option value="Credit_Life">Credit-Life</option>
+                    <option value="Legal">Legal Claims</option>
+                </select>
+            </div>
+            <button id="total-claims-download-btn">📥 Download .xlsx</button>
+        </div>
+        <table id="total-claims-table">
+            <tbody>
+                <!-- to be filled dynamically via js -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-divs closed-claims-div">
+        <div class="filtering-elements-box">
+            <div style="background-color: transparent; border: none;">
+                <h4>Closed Claims</h4>
+            </div>
+            <div>
+                <h5 id="closed-claims-count">-</h5>
+
+            </div>
+            <div style="position: relative; display: flex; align-items: center;">
+                <span
+                    style="pointer-events: none; position: absolute; left: 0.4rem; font-size: 0.7rem; opacity: 0.6;">🔍</span>
+                <input type="text" id="closed-claims-search" placeholder="Search by client...">
+            </div>
+            <div>
+                <select id="closed-claims-branch-filter">
+                    <option value="" selected>All Branches</option>
+                    <option value="EBIL Head Office">EBIL Head Office</option>
+                    <option value="Corporate Fourways">Corporate Fourways</option>
+                    <option value="Archers Post">Archers Post</option>
+                    <option value="Awendo">Awendo</option>
+                    <option value="Bomet">Bomet</option>
+                    <option value="Bondo">Bondo</option>
+                    <option value="Bungoma">Bungoma</option>
+                    <option value="Buru Buru">Buru Buru</option>
+                    <option value="Busia">Busia</option>
+                    <option value="Chaka">Chaka</option>
+                    <option value="Changamwe">Changamwe</option>
+                    <option value="Chuka">Chuka</option>
+                    <option value="City Hall">City Hall</option>
+                    <option value="Community">Community</option>
+                    <option value="Community Corporate">Community Corporate</option>
+                    <option value="Dadaab">Dadaab</option>
+                    <option value="Dagoretti Corner">Dagoretti Corner</option>
+                    <option value="Donholm">Donholm</option>
+                    <option value="Eastleigh">Eastleigh</option>
+                    <option value="Eldama Ravine">Eldama Ravine</option>
+                    <option value="Eldoret">Eldoret</option>
+                    <option value="Eldoret Market">Eldoret Market</option>
+                    <option value="Eldoret Supreme Centre">Eldoret Supreme Centre</option>
+                    <option value="Emali">Emali</option>
+                    <option value="Embakasi">Embakasi</option>
+                    <option value="Embassy House">Embassy House</option>
+                    <option value="Embu">Embu</option>
+                    <option value="Engineer">Engineer</option>
+                    <option value="Enterprise Road">Enterprise Road</option>
+                    <option value="EPZ Athi River">EPZ Athi River</option>
+                    <option value="Equity Centre">Equity Centre</option>
+                    <option value="Equity Centre Diaspora">Equity Centre Diaspora</option>
+                    <option value="Equity Hapo Hapo">Equity Hapo Hapo</option>
+                    <option value="Fourways">Fourways</option>
+                    <option value="Garden City">Garden City</option>
+                    <option value="Garissa">Garissa</option>
+                    <option value="Gatundu">Gatundu</option>
+                    <option value="Gigiri Supreme Centre">Gigiri Supreme Centre</option>
+                    <option value="Gikomba">Gikomba</option>
+                    <option value="Gilgil">Gilgil</option>
+                    <option value="Githunguri">Githunguri</option>
+                    <option value="Githurai">Githurai</option>
+                    <option value="Harambee Avenue">Harambee Avenue</option>
+                    <option value="Hola">Hola</option>
+                    <option value="Homa Bay">Homa Bay</option>
+                    <option value="Industrial Area Kenpipe Plaza">Industrial Area (Kenpipe Plaza)</option>
+                    <option value="Inland Container Depot Embakasi">Inland Container Depot (ICD) Embakasi</option>
+                    <option value="Isibania">Isibania</option>
+                    <option value="Isinya">Isinya</option>
+                    <option value="Isiolo">Isiolo</option>
+                    <option value="Iten">Iten</option>
+                    <option value="JKIA Cargo Centre">JKIA Cargo Centre</option>
+                    <option value="Juja">Juja</option>
+                    <option value="Kabarnet">Kabarnet</option>
+                    <option value="Kagio">Kagio</option>
+                    <option value="Kagwe Sub Branch">Kagwe Sub Branch</option>
+                    <option value="Kahawa West">Kahawa West</option>
+                    <option value="Kajiado">Kajiado</option>
+                    <option value="Kakamega">Kakamega</option>
+                    <option value="Kakuma">Kakuma</option>
+                    <option value="Kangari">Kangari</option>
+                    <option value="Kangema">Kangema</option>
+                    <option value="Kangemi">Kangemi</option>
+                    <option value="Kapenguria">Kapenguria</option>
+                    <option value="Kapsabet">Kapsabet</option>
+                    <option value="Kapsowar Sub Branch">Kapsowar Sub-Branch</option>
+                    <option value="Karatina">Karatina</option>
+                    <option value="Karen">Karen</option>
+                    <option value="Karen Supreme Centre">Karen Supreme Centre</option>
+                    <option value="Kariobangi">Kariobangi</option>
+                    <option value="Kasarani">Kasarani</option>
+                    <option value="Kawangware">Kawangware</option>
+                    <option value="Kawangware Sub Branch">Kawangware Sub Branch</option>
+                    <option value="Kayole">Kayole</option>
+                    <option value="Kengeleni">Kengeleni</option>
+                    <option value="Kenol">Kenol</option>
+                    <option value="Kenyatta Avenue">Kenyatta Avenue</option>
+                    <option value="Kenyatta Avenue Supreme">Kenyatta Avenue Supreme</option>
+                    <option value="Kenyatta Market">Kenyatta Market</option>
+                    <option value="Kericho">Kericho</option>
+                    <option value="Keroka">Keroka</option>
+                    <option value="Kerugoya">Kerugoya</option>
+                    <option value="Kiambu">Kiambu</option>
+                    <option value="Kibera">Kibera</option>
+                    <option value="Kibwezi Sub Branch">Kibwezi Sub-Branch</option>
+                    <option value="Kikuyu">Kikuyu</option>
+                    <option value="Kilgoris">Kilgoris</option>
+                    <option value="Kilifi">Kilifi</option>
+                    <option value="Kilimani">Kilimani</option>
+                    <option value="Kilimani Supreme">Kilimani Supreme</option>
+                    <option value="Kimathi Street">Kimathi Street</option>
+                    <option value="Kimende">Kimende</option>
+                    <option value="Kiriaini">Kiriaini</option>
+                    <option value="Kiserian Sub Branch">Kiserian Sub Branch</option>
+                    <option value="Kisii">Kisii</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Kisumu Angawa Avenue">Kisumu Angawa Avenue</option>
+                    <option value="Kisumu Supreme Centre">Kisumu Supreme Centre</option>
+                    <option value="Kitale">Kitale</option>
+                    <option value="Kitengela">Kitengela</option>
+                    <option value="Kitui">Kitui</option>
+                    <option value="Knut House">Knut House</option>
+                    <option value="KPA Sub-Branch Mombasa">KPA Sub-Branch Mombasa</option>
+                    <option value="KPCU">KPCU</option>
+                    <option value="KU Sub Branch">KU Sub Branch</option>
+                    <option value="Kutus Sub Branch">Kutus Sub-Branch</option>
+                    <option value="Kwale">Kwale</option>
+                    <option value="Laare">Laare</option>
+                    <option value="Lamu">Lamu</option>
+                    <option value="Lavington Corporate">Lavington Corporate</option>
+                    <option value="Limuru">Limuru</option>
+                    <option value="Litein">Litein</option>
+                    <option value="Lodwar">Lodwar</option>
+                    <option value="Loitoktok">Loitoktok</option>
+                    <option value="Luanda">Luanda</option>
+                    <option value="Machakos">Machakos</option>
+                    <option value="Malaba Town">Malaba Town</option>
+                    <option value="Malindi">Malindi</option>
+                    <option value="Mama Ngina">Mama Ngina</option>
+                    <option value="Mandera">Mandera</option>
+                    <option value="Maralal">Maralal</option>
+                    <option value="Marsabit">Marsabit</option>
+                    <option value="Matuu">Matuu</option>
+                    <option value="Maua">Maua</option>
+                    <option value="Mayfair Supreme Centre">Mayfair Supreme Centre</option>
+                    <option value="Mbale">Mbale</option>
+                    <option value="Mbita">Mbita</option>
+                    <option value="Meru">Meru</option>
+                    <option value="Meru Makutano">Meru Makutano</option>
+                    <option value="Migori">Migori</option>
+                    <option value="Mlolongo">Mlolongo</option>
+                    <option value="Moi Avenue">Moi Avenue</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Mombasa Digo Road">Mombasa Digo Road</option>
+                    <option value="Mombasa Road">Mombasa Road</option>
+                    <option value="Mombasa Supreme Centre">Mombasa Supreme Centre</option>
+                    <option value="Moyale">Moyale</option>
+                    <option value="Mpeketoni">Mpeketoni</option>
+                    <option value="Mtwapa">Mtwapa</option>
+                    <option value="Mukurweini">Mukurwe-ini</option>
+                    <option value="Mumias">Mumias</option>
+                    <option value="Murarandia">Murarandia</option>
+                    <option value="Muranga">Muranga</option>
+                    <option value="Mutomo">Mutomo</option>
+                    <option value="Mwea">Mwea</option>
+                    <option value="Mwingi">Mwingi</option>
+                    <option value="Nairobi West">Nairobi West</option>
+                    <option value="Naivasha">Naivasha</option>
+                    <option value="Nakuru">Nakuru</option>
+                    <option value="Nakuru Kenyatta Avenue">Nakuru Kenyatta Avenue</option>
+                    <option value="Nakuru Westside Mall">Nakuru Westside Mall</option>
+                    <option value="Namanga">Namanga</option>
+                    <option value="Nandi Hills">Nandi Hills</option>
+                    <option value="Nanyuki">Nanyuki</option>
+                    <option value="Narok">Narok</option>
+                    <option value="Ngara">Ngara</option>
+                    <option value="Ngong">Ngong</option>
+                    <option value="Njabini">Njabini</option>
+                    <option value="Nkubu">Nkubu</option>
+                    <option value="Nyahururu">Nyahururu</option>
+                    <option value="Nyali Centre Corporate">Nyali Centre Corporate</option>
+                    <option value="Nyali Supreme Centre">Nyali Supreme Centre</option>
+                    <option value="Nyamira">Nyamira</option>
+                    <option value="Nyeri">Nyeri</option>
+                    <option value="Nyeri Kimathi Way">Nyeri Kimathi Way</option>
+                    <option value="Ol Kalou">Ol Kalou</option>
+                    <option value="Ongata Rongai">Ongata Rongai</option>
+                    <option value="OTC">OTC</option>
+                    <option value="Othaya">Othaya</option>
+                    <option value="Oyugis">Oyugis</option>
+                    <option value="Ridgeways">Ridgeways</option>
+                    <option value="Ruai">Ruai</option>
+                    <option value="Ruaka">Ruaka</option>
+                    <option value="Ruiru">Ruiru</option>
+                    <option value="Rumuruti">Rumuruti</option>
+                    <option value="Runyenjes Sub Branch">Runyenjes Sub Branch</option>
+                    <option value="Siaya">Siaya</option>
+                    <option value="Sotik">Sotik</option>
+                    <option value="Taita Taveta">Taita Taveta</option>
+                    <option value="Tala">Tala</option>
+                    <option value="Tea Room">Tea Room</option>
+                    <option value="Thika Equity Plaza">Thika / Equity Plaza</option>
+                    <option value="Thika Kenyatta Avenue">Thika Kenyatta Avenue</option>
+                    <option value="Thika Makongeni">Thika Makongeni</option>
+                    <option value="Thika Supreme Centre">Thika Supreme Centre</option>
+                    <option value="Ukunda">Ukunda</option>
+                    <option value="Utawala">Utawala</option>
+                    <option value="Voi">Voi</option>
+                    <option value="Wajir">Wajir</option>
+                    <option value="Wangige Sub Branch">Wangige Sub Branch</option>
+                    <option value="Westlands">Westlands</option>
+                    <option value="Westlands Corporate">Westlands Corporate</option>
+                    <option value="Wote">Wote</option>
+                </select>
+            </div>
+            <div>
+                <select id="closed-claims-handler-filter">
+                    <option value="" selected>All Handlers</option>
+                    <option value="Erick">Erick</option>
+                    <option value="Grishon">Grishon</option>
+                    <option value="Patrick">Patrick</option>
+                    <option value="Chrisandos">Chrisandos</option>
+                </select>
+            </div>
+            <div>
+                <select id="closed-claims-underwriter-filter">
+                    <option value="" selected>All Underwriters</option>
+                    <option value="Jubilee Allianz">Jubilee Allianz</option>
+                    <option value="AAR Insurance">AAR Insurance</option>
+                    <option value="APA Insurance">APA Insurance</option>
+                    <option value="Britam General Insurance">
+                        Britam General Insurance
+                    </option>
+                    <option value="CIC General Insurance">CIC General Insurance</option>
+                    <option value="Kenindia Assurance">Kenindia Assurance</option>
+                    <option value="Madison General Insurance">
+                        Madison General Insurance
+                    </option>
+                    <option value="ICEA LION General Insurance">
+                        ICEA LION General Insurance
+                    </option>
+                    <option value="Heritage Insurance">Heritage Insurance</option>
+                    <option value="GA Insurance">GA Insurance</option>
+                    <option value="Sanlam General Insurance">
+                        Sanlam General Insurance
+                    </option>
+                    <option value="Old Mutual General Insurance">
+                        Old Mutual General Insurance
+                    </option>
+                    <option value="Directline Assurance">Directline Assurance</option>
+                    <option value="First Assurance">First Assurance</option>
+                    <option value="Occidental Insurance">Occidental Insurance</option>
+                    <option value="Kenya Orient Insurance">
+                        Kenya Orient Insurance
+                    </option>
+                    <option value="Mayfair Insurance">Mayfair Insurance</option>
+                    <option value="Geminia Insurance">Geminia Insurance</option>
+                    <option value="Trident Insurance">Trident Insurance</option>
+                    <option value="Fidelity Shield Insurance">
+                        Fidelity Shield Insurance
+                    </option>
+                    <option value="Cannon General Insurance">
+                        Cannon General Insurance
+                    </option>
+                    <option value="Amaco">Amaco</option>
+                    <option value="Invesco Assurance">Invesco Assurance</option>
+                    <option value="Xplico Insurance">Xplico Insurance</option>
+                </select>
+            </div>
+            <div>
+                <select id="closed-claims-category-filter">
+                    <option value="" selected>All Categories</option>
+                    <option value="Motor">Motor</option>
+                    <option value="Non_Motor">Non-Motor</option>
+                    <option value="Credit_Life">Credit-Life</option>
+                    <option value="Legal">Legal Claims</option>
+                </select>
+            </div>
+            <div>
+                <select id="closed-claims-sub-status-filter">
+                    <option value="" selected>All subs-tatuses</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+            <button id="closed-claims-download-btn">📥 Download .xlsx</button>
+        </div>
+        <table id="closed-claims-table">
+            <tbody>
+                <!-- to be filled dynamically via js -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-divs pending-claims">
+        <div class="filtering-elements-box">
+            <div style="background-color: transparent; border: none;">
+                <h4>Pending Claims</h4>
+            </div>
+            <div>
+                <h5 id="pending-claims-count">-</h5>
+
+            </div>
+            <div style="position: relative; display: flex; align-items: center;">
+                <span
+                    style="pointer-events: none; position: absolute; left: 0.4rem; font-size: 0.7rem; opacity: 0.6;">🔍</span>
+                <input type="text" id="pending-claims-search" placeholder="Search by client...">
+            </div>
+            <div>
+                <select id="pending-claims-branch-filter">
+                    <option value="" selected>All Branches</option>
+                    <option value="EBIL Head Office">EBIL Head Office</option>
+                    <option value="Corporate Fourways">Corporate Fourways</option>
+                    <option value="Archers Post">Archers Post</option>
+                    <option value="Awendo">Awendo</option>
+                    <option value="Bomet">Bomet</option>
+                    <option value="Bondo">Bondo</option>
+                    <option value="Bungoma">Bungoma</option>
+                    <option value="Buru Buru">Buru Buru</option>
+                    <option value="Busia">Busia</option>
+                    <option value="Chaka">Chaka</option>
+                    <option value="Changamwe">Changamwe</option>
+                    <option value="Chuka">Chuka</option>
+                    <option value="City Hall">City Hall</option>
+                    <option value="Community">Community</option>
+                    <option value="Community Corporate">Community Corporate</option>
+                    <option value="Dadaab">Dadaab</option>
+                    <option value="Dagoretti Corner">Dagoretti Corner</option>
+                    <option value="Donholm">Donholm</option>
+                    <option value="Eastleigh">Eastleigh</option>
+                    <option value="Eldama Ravine">Eldama Ravine</option>
+                    <option value="Eldoret">Eldoret</option>
+                    <option value="Eldoret Market">Eldoret Market</option>
+                    <option value="Eldoret Supreme Centre">Eldoret Supreme Centre</option>
+                    <option value="Emali">Emali</option>
+                    <option value="Embakasi">Embakasi</option>
+                    <option value="Embassy House">Embassy House</option>
+                    <option value="Embu">Embu</option>
+                    <option value="Engineer">Engineer</option>
+                    <option value="Enterprise Road">Enterprise Road</option>
+                    <option value="EPZ Athi River">EPZ Athi River</option>
+                    <option value="Equity Centre">Equity Centre</option>
+                    <option value="Equity Centre Diaspora">Equity Centre Diaspora</option>
+                    <option value="Equity Hapo Hapo">Equity Hapo Hapo</option>
+                    <option value="Fourways">Fourways</option>
+                    <option value="Garden City">Garden City</option>
+                    <option value="Garissa">Garissa</option>
+                    <option value="Gatundu">Gatundu</option>
+                    <option value="Gigiri Supreme Centre">Gigiri Supreme Centre</option>
+                    <option value="Gikomba">Gikomba</option>
+                    <option value="Gilgil">Gilgil</option>
+                    <option value="Githunguri">Githunguri</option>
+                    <option value="Githurai">Githurai</option>
+                    <option value="Harambee Avenue">Harambee Avenue</option>
+                    <option value="Hola">Hola</option>
+                    <option value="Homa Bay">Homa Bay</option>
+                    <option value="Industrial Area Kenpipe Plaza">Industrial Area (Kenpipe Plaza)</option>
+                    <option value="Inland Container Depot Embakasi">Inland Container Depot (ICD) Embakasi</option>
+                    <option value="Isibania">Isibania</option>
+                    <option value="Isinya">Isinya</option>
+                    <option value="Isiolo">Isiolo</option>
+                    <option value="Iten">Iten</option>
+                    <option value="JKIA Cargo Centre">JKIA Cargo Centre</option>
+                    <option value="Juja">Juja</option>
+                    <option value="Kabarnet">Kabarnet</option>
+                    <option value="Kagio">Kagio</option>
+                    <option value="Kagwe Sub Branch">Kagwe Sub Branch</option>
+                    <option value="Kahawa West">Kahawa West</option>
+                    <option value="Kajiado">Kajiado</option>
+                    <option value="Kakamega">Kakamega</option>
+                    <option value="Kakuma">Kakuma</option>
+                    <option value="Kangari">Kangari</option>
+                    <option value="Kangema">Kangema</option>
+                    <option value="Kangemi">Kangemi</option>
+                    <option value="Kapenguria">Kapenguria</option>
+                    <option value="Kapsabet">Kapsabet</option>
+                    <option value="Kapsowar Sub Branch">Kapsowar Sub-Branch</option>
+                    <option value="Karatina">Karatina</option>
+                    <option value="Karen">Karen</option>
+                    <option value="Karen Supreme Centre">Karen Supreme Centre</option>
+                    <option value="Kariobangi">Kariobangi</option>
+                    <option value="Kasarani">Kasarani</option>
+                    <option value="Kawangware">Kawangware</option>
+                    <option value="Kawangware Sub Branch">Kawangware Sub Branch</option>
+                    <option value="Kayole">Kayole</option>
+                    <option value="Kengeleni">Kengeleni</option>
+                    <option value="Kenol">Kenol</option>
+                    <option value="Kenyatta Avenue">Kenyatta Avenue</option>
+                    <option value="Kenyatta Avenue Supreme">Kenyatta Avenue Supreme</option>
+                    <option value="Kenyatta Market">Kenyatta Market</option>
+                    <option value="Kericho">Kericho</option>
+                    <option value="Keroka">Keroka</option>
+                    <option value="Kerugoya">Kerugoya</option>
+                    <option value="Kiambu">Kiambu</option>
+                    <option value="Kibera">Kibera</option>
+                    <option value="Kibwezi Sub Branch">Kibwezi Sub-Branch</option>
+                    <option value="Kikuyu">Kikuyu</option>
+                    <option value="Kilgoris">Kilgoris</option>
+                    <option value="Kilifi">Kilifi</option>
+                    <option value="Kilimani">Kilimani</option>
+                    <option value="Kilimani Supreme">Kilimani Supreme</option>
+                    <option value="Kimathi Street">Kimathi Street</option>
+                    <option value="Kimende">Kimende</option>
+                    <option value="Kiriaini">Kiriaini</option>
+                    <option value="Kiserian Sub Branch">Kiserian Sub Branch</option>
+                    <option value="Kisii">Kisii</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Kisumu Angawa Avenue">Kisumu Angawa Avenue</option>
+                    <option value="Kisumu Supreme Centre">Kisumu Supreme Centre</option>
+                    <option value="Kitale">Kitale</option>
+                    <option value="Kitengela">Kitengela</option>
+                    <option value="Kitui">Kitui</option>
+                    <option value="Knut House">Knut House</option>
+                    <option value="KPA Sub-Branch Mombasa">KPA Sub-Branch Mombasa</option>
+                    <option value="KPCU">KPCU</option>
+                    <option value="KU Sub Branch">KU Sub Branch</option>
+                    <option value="Kutus Sub Branch">Kutus Sub-Branch</option>
+                    <option value="Kwale">Kwale</option>
+                    <option value="Laare">Laare</option>
+                    <option value="Lamu">Lamu</option>
+                    <option value="Lavington Corporate">Lavington Corporate</option>
+                    <option value="Limuru">Limuru</option>
+                    <option value="Litein">Litein</option>
+                    <option value="Lodwar">Lodwar</option>
+                    <option value="Loitoktok">Loitoktok</option>
+                    <option value="Luanda">Luanda</option>
+                    <option value="Machakos">Machakos</option>
+                    <option value="Malaba Town">Malaba Town</option>
+                    <option value="Malindi">Malindi</option>
+                    <option value="Mama Ngina">Mama Ngina</option>
+                    <option value="Mandera">Mandera</option>
+                    <option value="Maralal">Maralal</option>
+                    <option value="Marsabit">Marsabit</option>
+                    <option value="Matuu">Matuu</option>
+                    <option value="Maua">Maua</option>
+                    <option value="Mayfair Supreme Centre">Mayfair Supreme Centre</option>
+                    <option value="Mbale">Mbale</option>
+                    <option value="Mbita">Mbita</option>
+                    <option value="Meru">Meru</option>
+                    <option value="Meru Makutano">Meru Makutano</option>
+                    <option value="Migori">Migori</option>
+                    <option value="Mlolongo">Mlolongo</option>
+                    <option value="Moi Avenue">Moi Avenue</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Mombasa Digo Road">Mombasa Digo Road</option>
+                    <option value="Mombasa Road">Mombasa Road</option>
+                    <option value="Mombasa Supreme Centre">Mombasa Supreme Centre</option>
+                    <option value="Moyale">Moyale</option>
+                    <option value="Mpeketoni">Mpeketoni</option>
+                    <option value="Mtwapa">Mtwapa</option>
+                    <option value="Mukurweini">Mukurwe-ini</option>
+                    <option value="Mumias">Mumias</option>
+                    <option value="Murarandia">Murarandia</option>
+                    <option value="Muranga">Muranga</option>
+                    <option value="Mutomo">Mutomo</option>
+                    <option value="Mwea">Mwea</option>
+                    <option value="Mwingi">Mwingi</option>
+                    <option value="Nairobi West">Nairobi West</option>
+                    <option value="Naivasha">Naivasha</option>
+                    <option value="Nakuru">Nakuru</option>
+                    <option value="Nakuru Kenyatta Avenue">Nakuru Kenyatta Avenue</option>
+                    <option value="Nakuru Westside Mall">Nakuru Westside Mall</option>
+                    <option value="Namanga">Namanga</option>
+                    <option value="Nandi Hills">Nandi Hills</option>
+                    <option value="Nanyuki">Nanyuki</option>
+                    <option value="Narok">Narok</option>
+                    <option value="Ngara">Ngara</option>
+                    <option value="Ngong">Ngong</option>
+                    <option value="Njabini">Njabini</option>
+                    <option value="Nkubu">Nkubu</option>
+                    <option value="Nyahururu">Nyahururu</option>
+                    <option value="Nyali Centre Corporate">Nyali Centre Corporate</option>
+                    <option value="Nyali Supreme Centre">Nyali Supreme Centre</option>
+                    <option value="Nyamira">Nyamira</option>
+                    <option value="Nyeri">Nyeri</option>
+                    <option value="Nyeri Kimathi Way">Nyeri Kimathi Way</option>
+                    <option value="Ol Kalou">Ol Kalou</option>
+                    <option value="Ongata Rongai">Ongata Rongai</option>
+                    <option value="OTC">OTC</option>
+                    <option value="Othaya">Othaya</option>
+                    <option value="Oyugis">Oyugis</option>
+                    <option value="Ridgeways">Ridgeways</option>
+                    <option value="Ruai">Ruai</option>
+                    <option value="Ruaka">Ruaka</option>
+                    <option value="Ruiru">Ruiru</option>
+                    <option value="Rumuruti">Rumuruti</option>
+                    <option value="Runyenjes Sub Branch">Runyenjes Sub Branch</option>
+                    <option value="Siaya">Siaya</option>
+                    <option value="Sotik">Sotik</option>
+                    <option value="Taita Taveta">Taita Taveta</option>
+                    <option value="Tala">Tala</option>
+                    <option value="Tea Room">Tea Room</option>
+                    <option value="Thika Equity Plaza">Thika / Equity Plaza</option>
+                    <option value="Thika Kenyatta Avenue">Thika Kenyatta Avenue</option>
+                    <option value="Thika Makongeni">Thika Makongeni</option>
+                    <option value="Thika Supreme Centre">Thika Supreme Centre</option>
+                    <option value="Ukunda">Ukunda</option>
+                    <option value="Utawala">Utawala</option>
+                    <option value="Voi">Voi</option>
+                    <option value="Wajir">Wajir</option>
+                    <option value="Wangige Sub Branch">Wangige Sub Branch</option>
+                    <option value="Westlands">Westlands</option>
+                    <option value="Westlands Corporate">Westlands Corporate</option>
+                    <option value="Wote">Wote</option>
+                </select>
+            </div>
+            <div>
+                <select id="pending-claims-handler-filter">
+                    <option value="" selected>All Handlers</option>
+                    <option value="Erick">Erick</option>
+                    <option value="Grishon">Grishon</option>
+                    <option value="Patrick">Patrick</option>
+                    <option value="Chrisandos">Chrisandos</option>
+                </select>
+            </div>
+            <div>
+                <select id="pending-claims-underwriter-filter">
+                    <option value="" selected>All Underwriters</option>
+                    <option value="Jubilee Allianz">Jubilee Allianz</option>
+                    <option value="AAR Insurance">AAR Insurance</option>
+                    <option value="APA Insurance">APA Insurance</option>
+                    <option value="Britam General Insurance">
+                        Britam General Insurance
+                    </option>
+                    <option value="CIC General Insurance">CIC General Insurance</option>
+                    <option value="Kenindia Assurance">Kenindia Assurance</option>
+                    <option value="Madison General Insurance">
+                        Madison General Insurance
+                    </option>
+                    <option value="ICEA LION General Insurance">
+                        ICEA LION General Insurance
+                    </option>
+                    <option value="Heritage Insurance">Heritage Insurance</option>
+                    <option value="GA Insurance">GA Insurance</option>
+                    <option value="Sanlam General Insurance">
+                        Sanlam General Insurance
+                    </option>
+                    <option value="Old Mutual General Insurance">
+                        Old Mutual General Insurance
+                    </option>
+                    <option value="Directline Assurance">Directline Assurance</option>
+                    <option value="First Assurance">First Assurance</option>
+                    <option value="Occidental Insurance">Occidental Insurance</option>
+                    <option value="Kenya Orient Insurance">
+                        Kenya Orient Insurance
+                    </option>
+                    <option value="Mayfair Insurance">Mayfair Insurance</option>
+                    <option value="Geminia Insurance">Geminia Insurance</option>
+                    <option value="Trident Insurance">Trident Insurance</option>
+                    <option value="Fidelity Shield Insurance">
+                        Fidelity Shield Insurance
+                    </option>
+                    <option value="Cannon General Insurance">
+                        Cannon General Insurance
+                    </option>
+                    <option value="Amaco">Amaco</option>
+                    <option value="Invesco Assurance">Invesco Assurance</option>
+                    <option value="Xplico Insurance">Xplico Insurance</option>
+                </select>
+            </div>
+            <div>
+                <select id="pending-claims-category-filter">
+                    <option value="" selected>All Categories</option>
+                    <option value="Motor">Motor</option>
+                    <option value="Non_Motor">Non-Motor</option>
+                    <option value="Credit_Life">Credit-Life</option>
+                    <option value="Legal">Legal Claims</option>
+                </select>
+            </div>
+            <div>
+                <select id="pending-claims-sub-status-filter">
+                    <option value="" selected>All sub-statuses</option>
+                    <option value="Pending with underwriter">Pending with underwriter</option>
+                    <option value="Pending with client">Pending with client</option>
+                </select>
+            </div>
+            <button id="pending-claims-download-btn">📥 Download .xlsx</button>
+        </div>
+        <table id="pending-claims-table">
+            <tbody>
+                <!-- to be filled dynamically via js -->
+            </tbody>
+        </table>
+    </div>
+
+    <dialog class="loading-dialog" id="loading-dialog">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <p>Loading, please wait...</p>
+        </div>
+    </dialog>
+
+    <!-- MOTOR DIALOG -->
+    <dialog
+      class="claim-dialog claim-dialog-motor"
+      id="motor_dialog"
+    >
+      <div>
+        <div class="dialog-header">
+          <div>
+            <h3 style="font-weight: 600; color: whitesmoke;">Claim <span id="motor-claim-id">Claim 102</span></h3>
+            <small style="color: gainsboro; font-size: 0.75rem">Motor</small>
+          </div>
+          <span class="" id="motor-status-badge" >-</span>
+          <button id="motor-dialog-close-x-btn"><span style="pointer-events: none">X</span></button>
+        </div>
+        <div class="dialog-body">
+          <section class="group">
+            <h3>Claim overview</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="motor-name_of_insured">Name of insured</label
+                ><input
+                  type="text"
+                  id="motor-name_of_insured"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-intimation_date">Intimation date</label
+                ><input
+                  type="text"
+                  id="motor-intimation_date"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-date_of_loss">Date of loss</label
+                ><input
+                  type="text"
+                  id="motor-date_of_loss"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-circumstance">Circumstance</label
+                ><input
+                  type="text"
+                  id="motor-circumstance"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-sum_insured">Sum insured</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="motor-sum_insured"
+                  data-field="sum_insured"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Vehicle and assessment</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="motor-registration_number"
+                  >Registration number</label
+                ><input
+                  type="text"
+                  id="motor-registration_number"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-motor_class">Motor class</label
+                ><input
+                  type="text"
+                  id="motor-motor_class"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-assessor">Assessor</label
+                ><input
+                  type="text"
+                  id="motor-assessor"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Handling</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="motor-underwriter">Underwriter</label
+                ><input
+                  type="text"
+                  id="motor-underwriter"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-branch">Branch</label
+                ><input
+                  type="text"
+                  id="motor-branch"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-handler">Claim handler</label
+                ><input
+                  type="text"
+                  id="motor-handler"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-status">Status</label
+                ><input
+                  type="text"
+                  id="motor-status"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-sub_status">Sub-status</label
+                ><input
+                  type="text"
+                  id="motor-sub_status"
+                  data-field="sub_status"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Documentation</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="motor-documented">Fully documented</label
+                ><input
+                  type="text"
+                  id="motor-documented"
+                  data-field="documented"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-date_fully_documented"
+                  >Date fully documented</label
+                ><input
+                  type="text"
+                  id="motor-date_fully_documented"
+                  data-field="date_fully_documented"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Discharge voucher and payment</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="motor-date_dv_issued">DV issued on</label
+                ><input
+                  type="text"
+                  id="motor-date_dv_issued"
+                  data-field="date_dv_issued"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-dv_amount">DV amount</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="motor-dv_amount"
+                  data-field="dv_amount"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-date_dv_returned">DV returned on</label
+                ><input
+                  type="text"
+                  id="motor-date_dv_returned"
+                  data-field="date_dv_returned"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-amount_paid">Amount paid</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="motor-amount_paid"
+                  data-field="amount_paid"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Turnaround</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="motor-closure_date">Closure date</label
+                ><input
+                  type="text"
+                  id="motor-closure_date"
+                  data-field="closure_date"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-tat_dv">TAT to DV (days)</label
+                ><input
+                  type="text"
+                  id="motor-tat_dv"
+                  data-field="tat_dv"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-tat_cl">TAT to closure (days)</label
+                ><input
+                  type="text"
+                  id="motor-tat_cl"
+                  data-field="tat_cl"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="motor-days_pending">Days pending</label
+                ><input
+                  type="text"
+                  id="motor-days_pending"
+                  data-field="days_pending"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Notes</h3>
+            <div class="field">
+              <label class="sr-only" for="motor-notes">Notes</label
+              ><textarea
+                id="motor-notes"
+                data-field="notes"
+                rows="5"
+                readonly
+              ></textarea>
+            </div>
+          </section>
+        </div>
+        <footer class="dlg-foot">
+          <p class="audit">
+            Created on: <span id="motor-created-at">—</span> &nbsp;|&nbsp; Last
+            updated on: <span id="motor-updated-at">—</span>
+          </p>
+          <div class="actions">
+            <!-- <button type="button" class="btn ghost" data-print>Print</button> -->
+            <button type="button" class="btn primary" id="motor-dialog-close-btn">Close</button>
+          </div>
+        </footer>
+      </div>
+    </dialog>
+
+
+<!-- NON-MOTOR DIALOG -->
+    <dialog
+      class="claim-dialog claim-dialog-non_motor"
+      id="non_motor_dialog"
+      data-category="non_motor"
+      aria-labelledby="non_motor-title"
+    >
+      <div>
+        <div class="dialog-header">
+          <div>
+            <h3 style="font-weight: 600; color: whitesmoke;">Claim <span id="non_motor-claim-id">Claim 102</span></h3>
+            <small style="color: gainsboro; font-size: 0.75rem">Non-Motor</small>
+          </div>
+          <span class="" id="non_motor-status-badge" >-</span>
+          <button id="non_motor-dialog-close-x-btn"><span style="pointer-events: none">X</span></button>
+        </div>
+        <div class="dialog-body">
+          <section class="group">
+            <h3>Claim overview</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="non_motor-name_of_insured">Name of insured</label
+                ><input
+                  type="text"
+                  id="non_motor-name_of_insured"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-intimation_date">Intimation date</label
+                ><input
+                  type="text"
+                  id="non_motor-intimation_date"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-date_of_loss">Date of loss</label
+                ><input
+                  type="text"
+                  id="non_motor-date_of_loss"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-circumstance">Circumstance</label
+                ><input
+                  type="text"
+                  id="non_motor-circumstance"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-sum_insured">Sum insured</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="non_motor-sum_insured"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Cover details</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="non_motor-cover_type">Cover type</label
+                ><input
+                  type="text"
+                  id="non_motor-cover_type"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Handling</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="non_motor-underwriter">Underwriter</label
+                ><input
+                  type="text"
+                  id="non_motor-underwriter"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-branch">Branch</label
+                ><input
+                  type="text"
+                  id="non_motor-branch"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-handler">Claim handler</label
+                ><input
+                  type="text"
+                  id="non_motor-handler"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-status">Status</label
+                ><input
+                  type="text"
+                  id="non_motor-status"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-sub_status">Sub-status</label
+                ><input
+                  type="text"
+                  id="non_motor-sub_status"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Documentation</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="non_motor-documented">Fully documented</label
+                ><input
+                  type="text"
+                  id="non_motor-documented"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-date_fully_documented"
+                  >Date fully documented</label
+                ><input
+                  type="text"
+                  id="non_motor-date_fully_documented"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Discharge voucher and payment</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="non_motor-date_dv_issued">DV issued on</label
+                ><input
+                  type="text"
+                  id="non_motor-date_dv_issued"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-dv_amount">DV amount</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="non_motor-dv_amount"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-date_dv_returned">DV returned on</label
+                ><input
+                  type="text"
+                  id="non_motor-date_dv_returned"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-amount_paid">Amount paid</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="non_motor-amount_paid"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Turnaround</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="non_motor-closure_date">Closure date</label
+                ><input
+                  type="text"
+                  id="non_motor-closure_date"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-tat_dv">TAT to DV (days)</label
+                ><input
+                  type="text"
+                  id="non_motor-tat_dv"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-tat_cl">TAT to closure (days)</label
+                ><input
+                  type="text"
+                  id="non_motor-tat_cl"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="non_motor-days_pending">Days pending</label
+                ><input
+                  type="text"
+                  id="non_motor-days_pending"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Notes</h3>
+            <div class="field">
+              <label class="sr-only" for="non_motor-notes">Notes</label
+              ><textarea
+                id="non_motor-notes"
+                rows="5"
+                readonly
+              ></textarea>
+            </div>
+          </section>
+        </div>
+        <footer class="dlg-foot">
+          <p class="audit">
+            Created on: <span id="non_motor-created-at">—</span> &nbsp;|&nbsp; Last
+            updated on: <span id="non_motor-updated-at">—</span>
+          </p>
+          <div class="actions">
+            <!-- <button type="button" class="btn ghost" data-print>Print</button> -->
+            <button type="button" class="btn primary" id="non_motor-dialog-close-btn">Close</button>
+          </div>
+        </footer>
+      </div>
+    </dialog>
+
+
+<!-- CREDIT LIFE DIALOG -->
+    <dialog
+      class="claim-dialog claim-dialog-credit_life"
+      id="credit_life_dialog"
+    >
+      <div>
+        <div class="dialog-header">
+          <div>
+            <h3 style="font-weight: 600; color: whitesmoke;">Claim <span id="credit_life-claim-id">Claim 102</span></h3>
+            <small style="color: gainsboro; font-size: 0.75rem">Credit Life</small>
+          </div>
+          <span class="" id="credit_life-status-badge" >-</span>
+          <button id="credit_life-dialog-close-x-btn"><span style="pointer-events: none">X</span></button>
+        </div>
+        <div class="dialog-body">
+          <section class="group">
+            <h3>Claim overview</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="credit_life-name_of_insured">Name of insured</label
+                ><input
+                  type="text"
+                  id="credit_life-name_of_insured"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-intimation_date">Intimation date</label
+                ><input
+                  type="text"
+                  id="credit_life-intimation_date"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-date_of_loss">Date of loss</label
+                ><input
+                  type="text"
+                  id="credit_life-date_of_loss"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-circumstance">Cause of event</label
+                ><input
+                  type="text"
+                  id="credit_life-circumstance"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-sum_insured">Loan amount</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="credit_life-sum_insured"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Credit life details</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="credit_life-claim_trigger">Claim trigger</label
+                ><input
+                  type="text"
+                  id="credit_life-claim_trigger"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Handling</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="credit_life-underwriter">Underwriter</label
+                ><input
+                  type="text"
+                  id="credit_life-underwriter"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-branch">Branch</label
+                ><input
+                  type="text"
+                  id="credit_life-branch"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-handler">Claim handler</label
+                ><input
+                  type="text"
+                  id="credit_life-handler"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-status">Status</label
+                ><input
+                  type="text"
+                  id="credit_life-status"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-sub_status">Sub-status</label
+                ><input
+                  type="text"
+                  id="credit_life-sub_status"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Documentation</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="credit_life-documented">Fully documented</label
+                ><input
+                  type="text"
+                  id="credit_life-documented"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-date_fully_documented"
+                  >Date fully documented</label
+                ><input
+                  type="text"
+                  id="credit_life-date_fully_documented"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Discharge voucher and payment</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="credit_life-date_dv_issued">DV issued on</label
+                ><input
+                  type="text"
+                  id="credit_life-date_dv_issued"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-dv_amount">DV amount</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="credit_life-dv_amount"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-date_dv_returned">DV returned on</label
+                ><input
+                  type="text"
+                  id="credit_life-date_dv_returned"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-amount_paid">Amount paid</label
+                ><input
+                  type="text"
+                  class="num"
+                  id="credit_life-amount_paid"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Turnaround</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="credit_life-closure_date">Closure date</label
+                ><input
+                  type="text"
+                  id="credit_life-closure_date"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-tat_dv">TAT to DV (days)</label
+                ><input
+                  type="text"
+                  id="credit_life-tat_dv"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-tat_cl">TAT to closure (days)</label
+                ><input
+                  type="text"
+                  id="credit_life-tat_cl"
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label for="credit_life-days_pending">Days pending</label
+                ><input
+                  type="text"
+                  id="credit_life-days_pending"
+                  readonly
+                />
+              </div>
+            </div>
+          </section>
+          <section class="group">
+            <h3>Notes</h3>
+            <div class="field">
+              <label class="sr-only" for="credit_life-notes">Notes</label
+              ><textarea
+                id="credit_life-notes"
+                rows="5"
+                readonly
+              ></textarea>
+            </div>
+          </section>
+        </div>
+        <footer class="dlg-foot">
+          <p class="audit">
+            Created on: <span id="credit_life-created-at">—</span> &nbsp;|&nbsp; Last
+            updated on: <span id="credit_life-updated-at">—</span>
+          </p>
+          <div class="actions">
+            <!-- <button type="button" class="btn ghost" data-print>Print</button> -->
+            <button type="button" class="btn primary" id="credit_life-dialog-close-btn">Close</button>
+          </div>
+        </footer>
+      </div>
+    </dialog>
+</div>
+{% endblock content %}

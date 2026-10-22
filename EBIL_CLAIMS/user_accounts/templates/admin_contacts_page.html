@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" >
+    <meta name="description" content="This a website for tracking Claims, right from the day of intimation to the day of payments." >
+    <meta name="keywords" content="Claims, Claim, Claim portal" >
+    <link rel="icon" type="image/png" href="/static/claim_handling/shield_icon.svg" >
+    <link rel="stylesheet" href="{% static 'user_accounts/admin_contacts.css' %}">
+    <script src="{% static 'user_accounts/admin_contacts.js' %}" defer></script>
+    <title>Contact Admin | EBIL Claims Portal</title>
+  </head>
+  <body>
+    <main class="card">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      </div>
+
+      <h1>Need an Account?</h1>
+      <p class="lead">
+        Accounts on the Claims Portal are created by the system administrator.
+        Send the admin a request and you will receive your login details once approved.
+      </p>
+
+      <div class="contact-box">
+        <div>
+          <div class="label">Administrator Email</div>
+          <div class="email" id="admin-email">shalommumo620@gmail.com</div>
+        </div>
+        <button type="button" class="copy-btn" id="copy-btn">Copy</button>
+      </div>
+
+      <div class="actions">
+        <!-- Opens Gmail in a new browser tab (works without any mail app set up) -->
+        <a
+          class="btn"
+          id="gmail-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=shalommumo620%40gmail.com&su=Claims%20Portal%20Account%20Request&body=Hello%20Admin%2C%0A%0AI%20would%20like%20to%20request%20an%20account%20on%20the%20EBIL%20Claims%20Portal.%0A%0AFIRST%20NAME%3A%20%0ALAST%20NAME%3A%20%0APF%3A%20%0AROLE%3A%20%0ABRANCH%3A%20%0AEMAIL%3A%20%0A%0AThank%20you"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="m22 7-10 6L2 7"></path>
+          </svg>
+          Email Admin (Gmail)
+        </a>
+
+        <!-- Opens the computer's default mail app (Outlook, Mail, etc.) -->
+        <a
+          class="btn btn-outline"
+          href="mailto:shalommumo620@gmail.com?subject=Claims%20Portal%20Account%20Request&body=Hello%20Admin%2C%0A%0AI%20would%20like%20to%20request%20an%20account%20on%20the%20EBIL%20Claims%20Portal.%0A%0AFIRST%20NAME%3A%20%0ALAST%20NAME%3A%20%0APF%3A%20%0AROLE%3A%20%0ABRANCH%3A%20%0AEMAIL%3A%20%0A%0AThank%20you"
+        >
+          Use my default mail app
+        </a>
+
+      </div>
+
+      <p class="hint">Please include your first name, last name, role, branch and email in your request.</p>
+
+      <a class="back" href="{% url 'login_page' %}">&larr; Back to Sign in</a>
+    </main>
+  </body>
+</html>

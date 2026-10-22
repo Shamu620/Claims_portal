@@ -1,0 +1,61 @@
+{% extends "master_template.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Reports&Analysis | Trends over time{% endblock title %}
+
+{% block static_links %}
+<script src="{% static 'claim_handling/chart_js.js' %}"></script>
+<link rel="stylesheet" href="{% static 'claim_handling/reports_trends_page.css' %}">
+{% endblock static_links %}
+
+{% block content %}
+<div class="reports-major-container">
+    <h2>Reports & Analysis</h2>
+    <small style="color: #8191a8e2; font-style: italic">Reports & Analysis > Trends</small>
+
+    <nav class="reports-navigation-bar">
+        <ul>
+            <li><a href='{% url "reports_underwriter_performance_page" %}'>Underwriter Performance</a></li>
+            <li><a href='{% url "reports_claims_data_page" %}'>Claims Data</a></li>
+            <li><a href='{% url "reports_trends_page" %}' style="border-bottom: 2px solid #faae0ce2;">Trends</a></li>
+        </ul>
+    </nav>
+
+    <div class="graphs-wrapper">
+        <div class="chart-card">
+            <div class="chart-area">
+                <canvas id="lodged-closed-trend-graph"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-area">
+                <canvas id="avg-tat-per-month-trend"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-area">
+                <canvas id="avg-settlement-ratio-per-month-trend-graph"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <select id="underwriter-select">
+                <option value="" selected disabled>Select Underwriter</option>
+            </select>
+            <div class="chart-area">
+                <canvas id="settlement-ratio-trend-for-each-underwriter"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Data for the charts: must come BEFORE the JS file #}
+{{ lodged_closed_trends|json_script:"lodged-closed-data" }}
+{{ settlement_ratio_per_underwriter_per_month|json_script:"settlement-data" }}
+{{ avg_tat_data_per_month|json_script:"avg-tat-data" }}
+{{ avg_settlement_ratio_per_month|json_script:"avg-settlement-data" }}
+
+<script src="{% static 'claim_handling/reports_trends_page.js' %}"></script>
+{% endblock content %}

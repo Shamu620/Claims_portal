@@ -1,0 +1,84 @@
+/* ---------- Page container ---------- */
+.reports-major-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* ---------- Sub-navigation ---------- */
+.reports-navigation-bar {
+    margin-top: 1rem;
+}
+
+.reports-navigation-bar ul {
+    list-style-type: none;
+    display: flex;
+    gap: max(2rem, 10vw);
+    padding-left: 1rem;
+    border-bottom: 1px solid #c1c6cde2;
+    margin-bottom: 0.5rem;
+}
+
+.reports-navigation-bar ul li a {
+    text-decoration: none;
+    color: #8191a8e2;
+}
+
+.reports-navigation-bar ul li a:hover,
+.reports-navigation-bar ul li a:active {
+    color: #000000;
+    border-bottom: 2px solid #faae0ce2;
+}
+
+/* ---------- Charts grid ---------- */
+.graphs-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80%, 1fr));
+    margin-top: 1rem;
+    gap: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #c1c6cde2;
+    border-top: 2px solid #d4a017;
+    border-bottom: 2px solid #d4a017;
+}
+
+/* ---------- Individual chart card ---------- */
+.chart-card {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    height: 30rem;
+    border: 1px solid #b2b6bca6;
+    padding: 0.3rem;
+}
+
+/* Underwriter dropdown sits above the canvas, not on top of it */
+.chart-card select {
+    align-self: flex-start;
+    margin-bottom: 0.4rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #b2b6bca6;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #333333;
+    cursor: pointer;
+}
+
+.chart-card select:focus {
+    outline: none;
+    border-color: #d4a017;
+}
+
+/* Chart.js needs a relatively positioned container with a real height */
+.chart-area {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+}
+
+.chart-area canvas {
+    width: 100% !important;
+    height: 100% !important;
+}

@@ -1,0 +1,779 @@
+html {
+        font-size: 15px;
+      }
+
+      @media (max-width: 1000px) {
+        html {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        html {
+          font-size: 13px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        html {
+          font-size: 12px;
+        }
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        line-height: 1.1;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Source Sans 3", system-ui, sans-serif;
+        color: #111;
+        background: #f3f4f6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      select {
+        font-family: inherit;
+      }
+
+      input:focus,
+      select:focus,
+      button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid #d9a21b;
+        outline-offset: 2px;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      .page {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        background: #f3f4f6;
+      }
+
+      /* ---------- Top bar ---------- */
+      .topbar {
+        background: #000;
+        color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px 24px;
+        padding: 5px 10px;
+      }
+
+      .brand {
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 700;
+        font-size: 1.7rem;
+        letter-spacing: 0.2px;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .users-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        min-height: 28px;
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        border-radius: 6px;
+        background: #d9a21b;
+        color: #000;
+        border: 1px solid #e8b93e;
+        cursor: pointer;
+      }
+
+      .account {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .account-role {
+        font-size: 0.9rem;
+        color: #e5e5e5;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e8112d;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+
+      /* ---------- Content ---------- */
+      .content {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0.5rem 1.25rem 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        flex: 1;
+      }
+
+      .title-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.15;
+        color: #000;
+      }
+
+      .crumb {
+        font-style: italic;
+        font-size: 1.25rem;
+        color: #52607f;
+        margin-top: 2px;
+      }
+
+      .btn-add {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 2.2rem;
+        padding: 0 1.2rem;
+        border: 1px solid #e8b93e;
+        border-radius: 6px;
+        background: #d9a21b;
+        color: #000;
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+
+      /* ---------- Summary cards ---------- */
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .card {
+        flex: 1 1 200px;
+        background: #eae7e7;
+        border: 1px solid #cfcbcb;
+        border-top: 2px solid #d9a21b;
+        border-radius: 3px;
+        padding: 0.5rem 0.5rem;
+        text-align: center;
+      }
+
+      .card-label {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #000;
+      }
+
+      .card-value {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-top: 0.2rem;
+        color: #000;
+      }
+
+      /* ---------- Users panel ---------- */
+      .panel {
+        flex: 1;
+        max-height: 80%;
+        display: flex;
+        flex-direction: column;
+        background: #f3f4f6;
+        border: 1px solid #dadce0;
+        border-top: 2px solid #d9a21b;
+      }
+
+      .panel-head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.2rem 0.2rem;
+        padding-right: 0.5rem;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #3a4150;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .filter {
+        min-height: 2rem;
+        padding: 0 12px;
+        border: 1px solid #bfc3ca;
+        border-radius: 4px;
+        background: #fff;
+        font-size: 1.1rem;
+      }
+
+      .filter.search {
+        width: 220px;
+      }
+
+      .content .dt-container,
+      .content .dataTables_wrapper {
+        flex: 1;
+        overflow: hidden;
+        background: #f3f4f6;
+        max-height: 90%;
+      }
+
+      .content .dt-container thead tr th,
+      .content .dataTables_wrapper thead tr th {
+        background-color: black;
+        color: white;
+        vertical-align: middle;
+        white-space: nowrap;
+        text-align: start;
+        font-weight: 500;
+        padding: 0.4rem 0.4rem;
+        padding-right: 35px !important;
+        padding-left: 0 !important;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      .content .dt-container thead tr th:last-child,
+      .content .dataTables_wrapper thead tr th:last-child,
+      .content .dt-container thead tr th:first-child,
+      .content .dataTables_wrapper thead tr th:first-child {
+        text-align: center;
+      }
+
+      .content .dt-container tbody tr,
+      .content .dataTables_wrapper tbody tr {
+        border-bottom: 1px solid #e2e2e2;
+        padding: 0 !important;
+        cursor: pointer;
+      }
+
+      .content .dt-container tbody tr:hover,
+      .content .dataTables_wrapper tbody tr:hover {
+        background-color: rgba(218, 165, 32, 0.17);
+      }
+
+      .content .dt-container tbody tr td,
+      .content .dataTables_wrapper tbody tr td {
+        vertical-align: middle;
+        text-align: start;
+        padding: 0.1rem 0.2rem !important;
+        white-space: nowrap;
+      }
+
+      .content .dt-container tbody tr td:first-child,
+      .content .dataTables_wrapper tbody tr td:first-child,
+      .content .dt-container tbody tr td:last-child,
+      .content .dataTables_wrapper tbody tr td:last-child {
+        text-align: center;
+      }
+
+      .content .dt-layout-cell.dt-start {
+        padding: 0.1rem !important;
+        margin: 0.1rem !important;
+        font-size: 0.9rem !important;
+      }
+
+      .content .dt-layout-cell.dt-end {
+        padding: 0.1rem !important;
+        margin: 0.1rem !important;
+        font-size: 0.875rem !important;
+      }
+
+      .content .dt-layout-cell.dt-end button {
+        padding: 0.1rem !important;
+        margin: 0.1rem !important;
+        font-size: 0.875rem !important;
+      }
+
+      .content .dt-length {
+        padding: 0rem !important;
+        margin: 0rem !important;
+        font-size: 0.875rem !important;
+      }
+
+      .content .dt-length select {
+        padding: 0.1 !important;
+        margin: 0.1 !important;
+        font-size: 0.875rem !important;
+      }
+
+      table {
+        width: 100%;
+        min-width: 940px;
+        border-collapse: collapse;
+        font-size: 1rem;
+      }
+
+      thead tr {
+        background: #000;
+        color: #fff;
+        text-align: left;
+      }
+
+      th {
+        padding: 0.5rem 0.7rem;
+        font-weight: 700;
+      }
+
+      th.num {
+        width: 40px;
+      }
+
+      th.center,
+      td.center {
+        text-align: center;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #e2e2e2;
+      }
+
+      td {
+        padding: 0.3rem 0.4rem;
+      }
+
+      td.name {
+        font-weight: 600;
+      }
+
+      td.action {
+        padding: 0.3rem 0.4rem;
+      }
+
+      .never {
+        font-style: italic;
+        color: #52607f;
+      }
+
+      .pill {
+        display: inline-block;
+        min-width: 88px;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .pill.admin {
+        background: #9fddc0;
+        color: #0f3a2a;
+      }
+
+      .pill.sub {
+        background: #e8c39a;
+        color: #4a2f0b;
+      }
+
+      .btn-edit {
+        height: 90%;
+        padding: 3px;
+        border: none;
+        border-radius: 4px;
+        background: rgba(71, 69, 69, 0.834);
+        color: whitesmoke;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      .btn-edit:hover {
+        background: #d9a21b;
+        color: #000;
+      }
+
+      .btn-edit:active {
+        background: rgba(71, 69, 69, 0.834);
+        color: whitesmoke;
+      }
+
+      .panel-foot {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.875rem;
+        color: #52607f;
+        border-top: 1px solid #dadce0;
+      }
+
+      /* ---------- Footer ---------- */
+      .site-footer {
+        background: #7a7a7a;
+        color: #fff;
+        text-align: center;
+        font-size: 0.875rem;
+        padding: 0.4rem 0.6rem;
+      }
+
+      /* ---------- Add user dialog ---------- */
+      dialog {
+        width: 30%;
+        height: fit-content;
+        margin: auto;
+        padding: 0;
+        border: none;
+        border-top: 3px solid #d9a21b;
+        border-radius: 0.5rem;
+        background: #f3f4f6;
+        color: #111;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+        overflow-y: auto;
+      }
+
+      @media (max-width: 768px) {
+        dialog {
+          width: 80%;
+        }
+      }
+
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(2px);
+      }
+
+      .dlg-head {
+        background: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.3rem 0.5rem 0.3rem 1.25rem;
+      }
+
+      .dlg-title {
+        margin: 0;
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #fff;
+      }
+
+      .dlg-close {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        color: black;
+        border: 0;
+        background: aliceblue;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dlg-body {
+        flex: 1 1 70%;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.875rem;
+        overflow-y: auto;
+      }
+
+      .dlg-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .field {
+        flex: 1 1 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .field label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #3a4150;
+      }
+
+      .field input,
+      .field select {
+        height: 2.5rem;
+        width: 100%;
+        padding: 0 12px;
+        border: 1px solid #bfc3ca;
+        border-radius: 4px;
+        background: #fff;
+        font-size: 1.1rem;
+      }
+
+      .field > div {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .field > div > input {
+        width: 89%;
+      }
+
+      .field > div > span {
+        width: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background: #fff;
+        border-radius: 4px;
+        border: 1px solid #bfc3ca;
+        cursor: pointer
+      }
+
+      .dlg-hint {
+        font-size: 0.9rem;
+        font-style: italic;
+        color: #52607f;
+      }
+
+      .dlg-foot {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 0.5rem 0.5rem;
+        border-top: 1px solid #dadce0;
+        background: #eae7e7;
+      }
+
+      .btn-cancel {
+        height: 2.5rem;
+        padding: 0.5rem 1.2rem;
+        border: 1px solid #bfc3ca;
+        border-radius: 6px;
+        background: #fff;
+        color: #111;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+
+      .btn-create {
+        min-height: 2.5rem;
+        padding: 0.5rem 1.2rem;
+        border: 1px solid #e8b93e;
+        border-radius: 6px;
+        background: #d9a21b;
+        color: #000;
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+
+      /* ---------- Confirm addition dialog ---------- */
+      .confirm-dialog {
+        width: 25%;
+        height: fit-content;
+        margin: auto;
+      }
+
+      @media (max-width: 768px) {
+        .confirm-dialog {
+          width: 80%;
+        }
+      }
+
+      .confirm-body {
+        padding: 1.25rem 1.25rem 1.25rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .confirm-icon {
+        flex: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #f3dda6;
+        border: 1px solid #e8b93e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .confirm-text {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.45;
+        color: #111;
+      }
+
+      .confirm-lead {
+        display: block;
+        font-weight: 600;
+        color: #3a4150;
+        margin-bottom: 6px;
+      }
+
+      .confirm-name {
+        font-weight: 800;
+        color: #000;
+      }
+
+      .confirm-role {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 15px;
+        background: #e8c39a;
+        color: #4a2f0b;
+      }
+
+      .confirm-role.admin {
+        background: #9fddc0;
+        color: #0f3a2a;
+      }
+
+      /* Basic styling for the dialog box */
+      .loading-dialog {
+        padding: 2rem;
+        border: none !important; /*To remove the unwanting black outline when the dialog is active/is called*/
+        outline: none;
+        border-radius: 8px;
+        margin: auto;
+        height: fit-content;
+        width: fit-content;
+        background-color: transparent;
+      }
+
+      .loading-dialog:focus,
+      .loading-dialog:active {
+        outline: none !important; /*To remove the unwanting black outline when the dialog is active/is called*/
+      }
+
+      /* Backdrop dimming effect */
+      .loading-dialog::backdrop {
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      /* Layout for spinner and text */
+      .spinner-container {
+        min-height: 0;
+        height: 20dvh;
+        width: 20dvw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        font-family: sans-serif;
+        background-color: transparent;
+        color: white;
+      }
+
+      /* The Spinner itself */
+      .spinner {
+        height: 3rem;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        animation: spin 0.7s linear infinite;
+      }
+
+      /* Rotation Animation */
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ---------- Avatar Menu Popover ---------- */
+.account {
+  position: relative; /* Acts as the anchor for the absolute popup */
+}
+
+.avatar-popup {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  z-index: 1000;
+  min-width: 110px;
+}
+
+.avatar-popup form {
+  margin: 0;
+}
+
+.btn-logout-popup {
+  width: 100%;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background: #e8112d;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+  /* padding-top: 8px; Creates an invisible hover bridge over the gap */
+}
+
+.btn-logout-popup:hover {
+  background: #c50e24;
+}

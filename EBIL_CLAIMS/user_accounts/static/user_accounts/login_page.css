@@ -1,0 +1,438 @@
+:root {
+        --navy-dark: #0F1F38;
+        --navy: #1B3050;
+        --blue-accent: #C9A227;
+        --blue-bright: #C9A227;
+        --text-light: #ffffff;
+        --text-muted: #c7d2e8;
+        --gray-text: #1f2937;
+        --gray-muted: #6b7280;
+        --border-gray: #e8dfc2;
+        --bg-page: #fffbef;
+        --bg-image: url(/static/claim_handling/Login_page_background_image.png);
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      @media (max-width: 1000px) {
+        html {
+          font-size: 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        html {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 375px) {
+        html {
+          font-size: 13px;
+        }
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        line-height: 1;
+      }
+
+      *:focus {
+        outline: 1px solid var(--blue-bright);
+      }
+
+      body {
+        font-family:
+          system-ui,
+          -apple-system;
+        text-wrap: balance;
+        background-color: var(--bg-page);
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      a {
+        color: #a8841a;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      a:hover {
+        color: #7a5f0f;
+        text-decoration: underline;
+      }
+
+      a:focus {
+        border: none;
+        box-shadow: none;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+
+      .left {
+        flex: 1 1 450px;
+        min-height: 36.5rem;
+        height: 100dvh;
+        background-color: transparent;
+        position: relative;
+        background-image: linear-gradient(rgba(15, 31, 56, 0.6), rgba(15, 31, 56, 0.6)), var(--bg-image);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      @media (min-width: 910px) {
+        .left {
+          clip-path: polygon(0 0, 70% 0, 100% 49%, 100% 51%, 70% 100%, 0 100%);
+        }
+      }
+
+      .right {
+        flex: 1 1 450px;
+        background-color: transparent;
+        min-height: 36.5rem;
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.7rem;
+        padding-top: 1rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .content {
+        width: 70%;
+        height: 100%;
+        position: absolute;
+        left: 3rem;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 1.5rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        color: white;
+      }
+
+      .content p {
+        color: var(--gray-muted);
+        margin-left: 3rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .content p:first-of-type {
+        margin-left: 0;
+        margin-bottom: 2rem;
+      }
+
+      .content hr {
+        min-width: 5rem;
+        min-height: 0.3rem;
+        background-color: var(--blue-bright);
+        border-radius: 5px;
+        margin-top: 0.3rem;
+        margin-bottom: 0.7rem;
+        border: none;
+      }
+
+      .badge-icon {
+        width: 5rem;
+        height: 5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .h-3-box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: nowrap;
+        margin: 0;
+      }
+
+      .h-3-box_1 {
+        width: 2.3rem;
+        height: 2.3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .h-3-box_2 {
+        width: 2rem;
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #a8841a;
+        border-radius: 50%;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+      }
+
+      .h-3-box_3 {
+        width: 2rem;
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #a8841a;
+        border-radius: 50%;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+      }
+
+      .log-details {
+        height: 90%;
+        width: 70%;
+        background-color: #fffdf5;
+        position: relative;
+        border-radius: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0.5rem 2rem rgba(15, 31, 56, 0.18);
+      }
+
+      /* Floating Toast Error Alert */
+      .error-alert {
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fee2e2;
+        border: 1px solid #ef4444;
+        color: #b91c1c;
+        padding: 0.6rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        width: 85%;
+      }
+
+      .padlock-1-box {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+        border-radius: inherit;
+        background-color: transparent;
+        margin-top: 0.5rem;
+      }
+
+      .padlock-1-box > div {
+        width: 3rem;
+        height: 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f6ebc4;
+        border-radius: 50%;
+      }
+
+      .welcome-back-box {
+        background-color: transparent;
+        width: 100%;
+        height: 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: inherit;
+        margin-bottom: 1rem;
+      }
+
+      .login-form {
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.7rem;
+        width: 90%;
+      }
+
+      .login-form label {
+        font-weight: 600;
+      }
+
+      .parent-input-box {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        margin-top: 0;
+        margin-bottom: 0.6rem;
+        gap: 0.5rem;
+        width: 100%;
+      }
+
+      .parent-input-box > div {
+        width: 100%;
+        height: 2.7rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        border: 1.5px solid var(--border-gray);
+        border-radius: 0.6rem;
+      }
+
+      .parent-input-box > div > input {
+        width: 100%;
+        height: 100%;
+        padding-left: 2.4rem;
+        outline: none;
+        border-radius: inherit;
+        border: none;
+        background-color: transparent;
+      }
+
+      .parent-input-box > div > span {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: inherit;
+        width: 10%;
+      }
+
+      .parent-input-box > div:focus-within {
+        border-color: var(--blue-bright);
+        box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
+        transition: 0.2s ease-in-out;
+      }
+
+      .parent-remember-me-box {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-bottom: 1.5rem;
+        background-color: transparent;
+      }
+
+      .custom-checkbox {
+        width: 1rem;
+        height: 1rem;
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: transparent;
+        border: 1.5px solid #94a3b8;
+        border-radius: 0.2rem;
+        cursor: pointer;
+        display: grid;
+        place-content: center;
+      }
+
+      .custom-checkbox:checked {
+        background-color: #c9a227;
+        border-color: #c9a227;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230F1F38' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+        background-size: 0.75rem;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .parent-or-box {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        background-color: transparent;
+        height: fit-content;
+      }
+
+      .sign-in-btn {
+        background-color: var(--blue-bright);
+        width: 100%;
+        height: 2.5rem;
+        border-radius: 0.6rem;
+        color: #0f1f38;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        border: none;
+        box-shadow: 0 4px 14px rgba(201, 162, 39, 0.4);
+        transition: all 0.2s ease-in;
+        font-weight: 600;
+        gap: 0.5rem;
+      }
+
+      .sign-in-btn:hover {
+        background-color: #a8841a;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(201, 162, 39, 0.45);
+      }
+
+      .sign-in-btn:active {
+        transform: translateY(0);
+        border: none;
+        outline: none;
+      }
+
+      .sso-sign-in {
+        background-color: transparent;
+        width: 90%;
+        height: 2.5rem;
+        border-radius: 0.6rem;
+        color: var(--navy-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        border: 1.5px solid var(--border-gray);
+        transition: 0.1s ease-in;
+        cursor: no-drop;
+        transition: all 0.2s ease;
+        font-weight: 500;
+        gap: 0.5rem;
+      }
+
+      .sso-sign-in:hover {
+        background-color: #fff8e1;
+        border-color: #e8d79a;
+      }
+
+      @media (max-width: 900px) {
+        .left {
+          min-height: auto;
+          height: auto;
+          padding: 2rem 1rem;
+        }
+        .content {
+          position: static;
+          left: 0;
+          padding: 0;
+        }
+        .h-3-box,
+        .content p:not(:first-of-type) {
+          display: none;
+        }
+      }

@@ -1,0 +1,368 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="robots" content="index, follow" >
+    <meta name="description" content="This a website for tracking Claims, right from the day of intimation to the day of payments." >
+    <meta name="keywords" content="Claims, Claim, Claim portal" >
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1 L21 4.5 V11 C21 16.5 17 20.5 12 23 C7 20.5 3 16.5 3 11 V4.5 Z' fill='%230F1F38'/%3E%3Cpath d='M8 12.2 L10.8 15 L16.5 8.5' fill='none' stroke='%23C9A227' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
+    <link rel="stylesheet" href="{% static 'user_accounts/login.css' %}">
+    <script src="{% static 'user_accounts/login.js' %}" defer></script>
+    <title>Sign In | Claims Portal</title>
+  </head>
+
+  <body>
+    <div class="left">
+      <div class="content">
+        <div class="badge-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="1"
+            style="display: block; width: 100%; height: 100%"
+          >
+            <path
+              d="M12 2 L20 5.5 V11 C20 16 16.5 20 12 22 C7.5 20 4 16 4 11 V5.5 Z"
+            />
+            <path
+              d="M8.5 12 L11 14.5 L15.5 9.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <h1>Claims Portal</h1>
+        <h2>Fast. Reliable. Transparent.</h2>
+        <hr/>
+        <p>
+          Welcome to the Claims Portal.<br/>Manage and track claims efficiently
+          with ease and security.
+        </p>
+        <div class="h-3-box">
+          <div class="h-3-box_1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              style="display: block; width: 100%; height: 100%"
+            >
+              <circle cx="12" cy="12" r="11" fill="#A8841A"/>
+              <g transform="translate(4,4) scale(0.67)">
+                <path
+                  d="M12 2 L20 5.5 V11 C20 16 16.5 20 12 22 C7.5 20 4 16 4 11 V5.5 Z"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.5 12 L11 14.5 L15.5 9.5"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+            </svg>
+          </div>
+          <h3>Secure Access</h3>
+        </div>
+        <p>Your data is protected with enterprise-grade security.</p>
+        <div class="h-3-box">
+          <div class="h-3-box_2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              style="display: block; width: 60%; height: 60%"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                fill="none"
+                stroke="white"
+                stroke-width="1.8"
+              />
+              <path
+                d="M12 7 V12 L15 15"
+                fill="none"
+                stroke="white"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <h3>Track Claims</h3>
+        </div>
+        <p>Monitor the status of your claims in real time.</p>
+        <div class="h-3-box">
+          <div class="h-3-box_3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              style="display: block; width: 55%; height: 55%"
+            >
+              <path
+                d="M14 2 H6 C4.9 2 4 2.9 4 4 V20 C4 21.1 4.9 22 6 22 H18 C19.1 22 20 21.1 20 20 V8 L14 2 Z"
+                fill="none"
+                stroke="white"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14 2 V8 H20"
+                fill="none"
+                stroke="white"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <line
+                x1="8"
+                y1="13"
+                x2="16"
+                y2="13"
+                stroke="white"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <line
+                x1="8"
+                y1="17"
+                x2="16"
+                y2="17"
+                stroke="white"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <h3>Easy Management</h3>
+        </div>
+        <p>Submit, manage and resolve claims effortlessly.</p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="log-details">
+        <!-- ERROR ALERT FLOATING TOAST -->
+        {% if messages %}
+          <div id="error-alert" class="error-alert">
+            {% for message in messages %}
+              <p style="margin: 0;">{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="padlock-1-box">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              style="display: block; width: 50%; height: 50%"
+            >
+              <path
+                d="M7 10 V7 C7 4.2 9.2 2 12 2 C14.8 2 17 4.2 17 7 V10"
+                fill="none"
+                stroke="#A8841A"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M5 10 H19 C20.1 10 21 10.9 21 12 V20 C21 21.1 20.1 22 19 22 H5 C3.9 22 3 21.1 3 20 V12 C3 10.9 3.9 10 5 10 Z
+         M12 14 C11.2 14 10.5 14.7 10.5 15.5 C10.5 16.1 10.9 16.6 11.4 16.8 L11 19 H13 L12.6 16.8 C13.1 16.6 13.5 16.1 13.5 15.5 C13.5 14.7 12.8 14 12 14 Z"
+                fill="#A8841A"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="welcome-back-box">
+          <h2>Welcome Back</h2>
+          <p>Sign in to continue to the Claims Portal</p>
+        </div>
+        <form action="" class="login-form" method="POST">
+          {% csrf_token %}
+          <div class="parent-input-box">
+            <label for="username">Username:</label>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#94a3b8"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="
+                  position: absolute;
+                  left: 0.6rem;
+                  width: 1.5rem;
+                  height: 1.5rem;
+                  pointer-events: none;
+                "
+              >
+                <circle cx="12" cy="7" r="4.5"/>
+                <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+              </svg>
+              <input
+                type="text"
+                id="username"
+                name="user_input"
+                placeholder="Enter your username or email"
+                autocomplete="username"
+                required
+              />
+            </div>
+          </div>
+          <div class="parent-input-box">
+            <label for="password">Password:</label>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#94a3b8"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="
+                  position: absolute;
+                  left: 0.6rem;
+                  width: 1.5rem;
+                  height: 1.5rem;
+                  pointer-events: none;
+                "
+              >
+                <rect x="5" y="11" width="14" height="10" rx="2" ry="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+              <span id="view-password-btn">👁️</span>
+            </div>
+          </div>
+          <div class="parent-remember-me-box">
+            <input type="checkbox" name="remember_me" class="custom-checkbox"/>
+            <label
+              style="font-weight: normal; font-size: 0.9rem"
+              for="remember_me"
+            >Remember me</label>
+          </div>
+          <button type="submit" class="sign-in-btn" id="sign-in-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              style="width: 1.5rem; height: 1.5rem; pointer-events: none"
+            >
+              <path
+                d="M7.5 10.5V7.8a4.5 4.5 0 0 1 9 0v2.7"
+                fill="none"
+                stroke="#0F1F38"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5.5 10.5h13a1 1 0 0 1 1 1v8.5a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1v-8.5a1 1 0 0 1 1-1z"
+                fill="#ffffff"
+                stroke="#0F1F38"
+                stroke-width="1"
+              />
+              <path
+                d="M5.5 10.5h13a1 1 0 0 1 1 1v1.5h-15v-1.5a1 1 0 0 1 1-1z"
+                fill="#fff6d6"
+              />
+              <circle cx="12" cy="14.6" r="1.15" fill="#0F1F38"/>
+              <path
+                d="M12 15.7 L12 17.6"
+                stroke="#0F1F38"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+            </svg>
+            Sign in
+          </button>
+        </form>
+        <div class="parent-or-box">
+          <hr style="height: 0.1rem; width: 45%"/>
+          <p>or</p>
+          <hr style="height: 0.1rem; width: 45%"/>
+        </div>
+        <button class="sso-sign-in" disabled>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            style="width: 1.5rem; height: 1.5rem; pointer-events: none"
+          >
+            <path
+              d="M6 21V9.5L12 5l6 4.5V21H6z"
+              fill="#ffffff"
+              stroke="#0F1F38"
+              stroke-width="1.6"
+              stroke-linejoin="round"
+            />
+            <path d="M6 9.5 12 5l6 4.5v1.2L12 6.4 6 10.7z" fill="#fff6d6"/>
+            <path
+              d="M9 21v-8"
+              stroke="#0F1F38"
+              stroke-width="1.4"
+              stroke-linecap="round"
+            />
+            <path
+              d="M12 21v-8"
+              stroke="#0F1F38"
+              stroke-width="1.4"
+              stroke-linecap="round"
+            />
+            <path
+              d="M15 21v-8"
+              stroke="#0F1F38"
+              stroke-width="1.4"
+              stroke-linecap="round"
+            />
+            <path
+              d="M5.5 21h13"
+              stroke="#0F1F38"
+              stroke-width="1.6"
+              stroke-linecap="round"
+            />
+            <circle cx="12" cy="14.6" r="0.9" fill="#0F1F38"/>
+          </svg>
+          Sign in with SSO
+        </button>
+        <a href="{% url 'forgot_password_page' %}">Forgot Password?</a>
+        <p style="margin-top: 0.3rem;">
+          Don't have account? <a href="{% url 'admin_contacts_page' %}">Click here</a>
+        </p>
+      </div>
+      <p>Need help? 
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=shalommumo620@gmail.com&su=Claims%20Portal%20Support%20Request&body=Hello%20Shalom,%0A%0AMy%20request%20is:%0A%0A%0A%0AThank%20you."
+          >
+            Contact Support 
+            <svg width="20" height="16" viewBox="0 0 24 24" fill="none" stroke="#A8841A"      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"     style="vertical-align: middle;">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"></path>
+              <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+            </svg>
+          </a>
+        </p>
+      </p>
+    </div>
+  </body>
+</html>

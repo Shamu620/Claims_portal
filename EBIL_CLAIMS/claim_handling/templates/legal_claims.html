@@ -1,0 +1,96 @@
+{% extends "master_template.html" %}
+{% load static %}
+{% block title %} Sub-Admin | Legal Claims {% endblock title %}
+{% block static_links %}
+<link rel="stylesheet" href="{% static 'claim_handling/legal_claims.css' %}">
+<script src="{% static 'claim_handling/legal_claims.js' %}" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+/>
+
+{% endblock static_links %}
+{% block content %}
+<h2>Home</h2>
+<div class="welcome-refresh">
+  <small>Welcome back - here's what needs your attention today</small>
+</div>
+
+<div class="main-box">
+  <div class="left">
+    <div>
+      <p>PENDING CLAIMS BY CATEGORY</p>
+    </div>
+    <div class="all-pending" data-url="{% url 'pending_claims_page' %}">
+      <div class="category-symbol">
+        <p>&#9200;&#65038;</p>
+        <h4>All Pending</h4>
+      </div>
+      <p>{{ total_pending_claims }}</p>
+    </div>
+    <div class="motor" data-url="{% url 'motor_claims_page' %}">
+      <div class="category-symbol">
+        <p>&#9933;</p>
+        <h4>Motor</h4>
+      </div>
+      <p>{{ total_pending_motor_claims }}</p>
+    </div>
+    <div class="non-motor" data-url="{% url 'non_motor_claims_page' %}">
+      <div class="category-symbol">
+        <p>&#128230;&#65038;</p>
+        <h4>Non-Motor</h4>
+      </div>
+      <p>{{ total_pending_non_motor_claims }}</p>
+    </div>
+    <div class="credit-life" data-url="{% url 'credit_life_claims_page' %}">
+      <div class="category-symbol">
+        <p>&#9960;</p>
+        <h4>Credit-Life</h4>
+      </div>
+      <p>{{ total_pending_credit_life_claims }}</p>
+    </div>
+    <div class="legal active-category" data-url="{% url 'legal_claims_page' %}">
+      <div class="category-symbol">
+        <p>&#128220;&#65038;</p>
+        <h4>Legal</h4>
+      </div>
+      <p id="total-legal-claims">{{ total_pending_legal_claims }}</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="coming-soon">
+      <div class="cs-emblem" aria-hidden="true">
+        <!-- Scales of justice -->
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 3v17" />
+          <path d="M8 20h8" />
+          <path d="M5 6.5h14" />
+          <path d="M5 6.5L2.5 13a2.8 2.8 0 0 0 5 0L5 6.5z" />
+          <path d="M19 6.5L16.5 13a2.8 2.8 0 0 0 5 0L19 6.5z" />
+          <circle cx="12" cy="4" r="0.9" />
+        </svg>
+      </div>
+      <span class="cs-badge">Coming Soon</span>
+      <h2>
+        Legal Claims
+        <span>This module is currently under development</span>
+      </h2>
+      <div class="cs-divider"></div>
+      <p>
+        We are building a dedicated workspace to track and manage legal claims
+        in one place. It will be available here shortly.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

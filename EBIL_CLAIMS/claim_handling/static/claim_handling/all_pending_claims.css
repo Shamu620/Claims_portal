@@ -1,0 +1,426 @@
+  * {
+    line-height: 1.1;
+  }
+
+  input:focus {
+    border: none;
+    outline: none;
+  }
+
+  small {
+    font-size: 0.8rem;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+
+
+
+  option {
+    background-color: whitesmoke;
+    border-color: red;
+    outline: 2px solid salmon;
+  }
+
+  .welcome-refresh {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    gap: 0.5rem;
+  }
+
+  .welcome-refresh > p {
+    font-size: 0.8rem;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+
+  .warning-box-red {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #fca5a5;
+    border-left: 4px solid #ef4444;
+    border-radius: 0.625rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(239, 68, 68, 0.08);
+  }
+
+  .warning-box-red p {
+    font-size: 0.875rem;
+    color: #991b1b;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+    .warning-box-green {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 1px solid #86efac;
+    border-left: 4px solid #22c55e;
+    border-radius: 0.625rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(34, 197, 94, 0.08);
+  }
+
+  .warning-box-green p {
+    font-size: 0.875rem;
+    color: #166534;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+
+  .main-box {
+    flex: 1.5 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.4rem;
+    gap: 1rem;
+    min-height: 0;
+    /* height: 75dvh; */
+  }
+
+  .left {
+    flex: 1 1 100px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    border-radius: 0.625rem;
+    overflow: auto;
+  }
+
+  .left div:first-of-type {
+    width: 90%;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .all-pending,
+  .motor,
+  .non-motor,
+  .credit-life,
+  .legal {
+    flex: 1 1 50px;
+    background: #f9fafb;
+    width: 90%;
+    border: 1px solid rgb(220, 208, 208);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 1px 2px 5px 7px rgba(0, 0, 0, 0.08);
+    transition: 0.2s ease-in;
+  }
+
+  .active-category {
+    border-color: #d8a838;
+    border-left: 5px solid #d8a838;
+    background-color: #dac49633;
+  }
+
+  .all-pending:hover,
+  .motor:hover,
+  .non-motor:hover,
+  .credit-life:hover,
+  .legal:hover {
+    transform: translateY(-0.1rem);
+    background-color: #e6ca886d;
+    border-color: #d8a838;
+    box-shadow: 1px 2px 5px 7px rgba(216, 168, 56, 0.15);
+  }
+
+  .category-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.1rem, 0.1vw, 0.5em);
+  }
+
+  .category-symbol p {
+    font-size: 1.5rem;
+  }
+
+  .right {
+    flex: 5 1 500px;
+    max-width: 85%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.625rem;
+    min-height: 0;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .header {
+    display: flex;
+    /* flex-direction: column; */
+    line-height: 1.3;
+    margin: 0.3rem 0 0.4rem 0.2rem;
+    justify-content: space-between;
+  }
+
+  .header p {
+    font-size: 0.6rem;
+  }
+
+  .search-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 2vw, 3rem);
+    margin-left: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+
+   .search-box select {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.8rem;
+    color: #374151;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+    margin: 0 !important;
+  }
+
+  .search-box select:hover,
+  .search-box select:focus {
+    border-color: #d8a838;
+    box-shadow: 0 0 0 3px rgba(216, 168, 56, 0.15);
+    outline: none;
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    min-width: 220px;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .search:focus-within,
+  .search:hover {
+    border-color: #d8a838;
+    box-shadow: 0 0 0 3px rgba(216, 168, 56, 0.15);
+  }
+
+  .search > div {
+    pointer-events: none;
+    font-size: 0.95rem;
+    color: #9ca3af;
+  }
+
+  .search input {
+    border: none;
+    background: transparent;
+    font-size: 0.78rem;
+    color: #1f2937;
+    width: 100%;
+    padding: 0.2rem 0;
+  }
+
+  .search input::placeholder {
+    color: #9ca3af;
+  }
+
+  /* ========== DATATABLES ========== */
+  .right .dt-container,
+  .right .dataTables_wrapper {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-left: 0.2rem;
+  }
+
+  .right .dt-container tbody tr:nth-child(odd),
+  .right .dataTables_wrapper tbody tr:nth-child(odd) {
+    background-color: rgba(179, 171, 171, 0.208);
+  }
+
+  /* .right .dt-container tbody tr.old-claim,
+.right .dataTables_wrapper tbody tr.old-claim{
+  background-color: rgba(217, 83, 79, 0.16) !important;
+  border-left: 3px solid #d9534f !important;
+} */
+ 
+  .right .dt-container tbody tr.old-claim,
+  .right .dataTables_wrapper tbody tr.old-claim {
+    background-color: rgba(241, 196, 15, 0.1) !important;
+    box-shadow: inset 3px 0 0 rgba(241, 196, 15, 0.8) !important;
+  }
+
+  .right .dt-container tbody tr.older-claim,
+  .right .dataTables_wrapper tbody tr.older-claim {
+    background-color: rgba(217, 83, 79, 0.1) !important;
+    box-shadow: inset 3px 0 0 #d9534f !important;
+  }
+
+  .right .dt-container tbody tr:hover,
+  .right .dataTables_wrapper tbody tr:hover {
+    background-color: rgba(59, 91, 130, 0.08) !important;
+    cursor: pointer !important;
+  }
+
+  .right .dt-container tbody tr td,
+  .right .dataTables_wrapper tbody tr td {
+    font-size: 0.8125rem;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #2d3748;
+    text-align: start;
+    vertical-align: middle;
+    padding: 0.2rem 0.2rem;
+    border-bottom: 1px solid rgba(133, 137, 143, 0.591);
+    border-right: 1px solid rgba(133, 137, 143, 0.1);
+    white-space: nowrap;
+    padding-left: 3px;
+  }
+
+  .right .dt-container thead tr th,
+  .right .dataTables_wrapper thead tr th {
+    background-color: black;
+    color: white;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: start;
+    font-weight: 500;
+    padding: 0.4rem 0.4rem;
+    padding-right: 35px !important;
+    padding-left: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .right .dt-container thead tr th:first-child,
+  .right .dataTables_wrapper thead tr th:first-child{
+    text-align: center !important;
+  }
+
+
+  /* The scrolling body – this is the only thing that should scroll */
+  .right .dt-scroll-body,
+  .right .dataTables_scrollBody {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: 65dvh;
+    background-color: rgba(179, 171, 171, 0.208);
+  }
+
+  .right .dt-empty,
+  .right .dataTables_empty {
+    text-align: center !important;
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+
+  .right .dataTables_processing,
+  .right .dt-processing {
+    background: rgba(255, 255, 255, 0.85);
+    color: #d8a838;
+    font-weight: 600;
+    border-radius: 0.5rem;
+  }
+
+  .right .dt-layout-cell {
+    padding: 0 !important;
+    margin: 0.2rem 0.2rem !important;
+    font-size: 0.7rem;
+  }
+
+  .right .dt-paging.paging_full_numbers {
+    font-size: 0.7rem;
+  }
+
+  .right .dt-paging.paging_full_numbers button {
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 900px) {
+    .main-box,
+    .right {
+      overflow: visible;
+      height: auto;
+      min-height: 0;
+      max-width: 100%;
+    }
+  }
+
+  /* claims-table-loading.css
+   Pairs with claims-table.js — Solution 6 (loading states + skeleton rows) */
+
+  /* Dim existing rows slightly instead of clearing the table while a new
+   page/search/filter request is in flight. Avoids the jarring blank-table flash. */
+  /* #major-table tbody.is-loading {
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in-out;
+  animation: skeleton-shimmer 1.4s ease infinite;
+} */
+
+  #major-table tbody.is-loading {
+    pointer-events: none;
+  }
+
+  #major-table tbody.is-loading tr td {
+    position: relative;
+    overflow: hidden;
+  }
+
+  #major-table tbody.is-loading tr td::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(216, 168, 56, 0) 0%,
+      rgba(216, 168, 56, 0.08) 50%,
+      rgba(216, 168, 56, 0) 100%
+    );
+    background-size: 250% 100%;
+    animation: skeleton-shimmer 2.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* Simple skeleton placeholder shown only before the very first page of data loads */
+  #major-table tbody.is-skeleton tr {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e6e6e6 37%, #f0f0f0 63%);
+    background-size: 10%;
+    animation: skeleton-shimmer 1.4s linear finite;
+    height: 65dvh;
+  }
+
+  #major-table tbody.is-skeleton td {
+    color: grey;
+  }
+
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }

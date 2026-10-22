@@ -1,0 +1,114 @@
+{% load static %}
+{% load l10n %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" >
+    <meta name="description" content="This a website for tracking Claims, right from the day of intimation to the day of payments." >
+    <meta name="keywords" content="Claims, Claim, Claim portal" >
+    <link rel="stylesheet" href="{% static 'claim_handling/master_template.css' %}">
+    <script src="{% static 'claim_handling/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'claim_handling/master_template.js' %}" defer></script>
+    <script src="{% static 'claim_handling/dataTables.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'claim_handling/dataTables.dataTables.min.css' %}">
+    <link rel="icon" type="image/png" href="/static/claim_handling/shield_icon.svg" >
+    {% block static_links %}{% endblock static_links %}
+    <title>{% block title %}{% endblock title %}</title>
+  </head>
+
+  <body>
+    {% comment %}
+      The active nav item is decided server-side from the URL *name* of the
+      current page (request.resolver_match.url_name), so it keeps working even
+      if the URL paths change.
+
+      Reports & Analysis stays active on ALL report pages. 
+
+      The names below must match the `name=` values in the urls.py.
+      Requires 'django.template.context_processors.request' in
+      TEMPLATES -> OPTIONS -> context_processors (enabled by default).
+    {% endcomment %}
+    {% with current=request.resolver_match.url_name %}
+    <nav style="position: sticky; top: 0; z-index: 10;">
+      <ul class="main-nav-bar" id="main-nav-bar">
+        <li>
+          <h1>EBIL Claims Portal</h1>
+        </li>
+
+        {% if current == 'reports_underwriter_performance_page' or current == 'reports_claims_data_page' or current == 'reports_trends_page' %}
+          {# ---- Reports section: Reports&Analysis is active ---- #}
+          <li>
+            <a
+              id="home-link"
+              href="{% url 'pending_claims_page' %}"
+              class="nav-buttons"
+              >&#x1F3E0;&#xFE0E; Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'reports_underwriter_performance_page' %}"
+              class="nav-buttons nav-buttons-active"
+              aria-current="page"
+              >&#x1F4CA;&#xFE0E; Reports&amp;Analysis</a
+            >
+          </li>
+        {% else %}
+          {# ---- Everywhere else: Home is active ---- #}
+          <li>
+            <a
+              id="home-link"
+              href="{% url 'pending_claims_page' %}"
+              class="nav-buttons nav-buttons-active"
+              aria-current="page"
+              >&#x1F3E0;&#xFE0E; Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'reports_underwriter_performance_page' %}"
+              class="nav-buttons"
+              >&#x1F4CA;&#xFE0E; Reports&amp;Analysis</a
+            >
+          </li>
+        {% endif %}
+
+        <li class="settings-item">
+          <a href="#" id="settings" class="nav-buttons">&#x2699;&#xFE0E; Settings</a>
+        </li>
+          <li>
+            <div
+              style="display: flex; align-items: center; justify-content: space-between; gap: 0.3rem;
+                    margin: 1px; position: relative;"
+            >
+              <span id="user-role" style="height: 100%; align-items: center; justify-content: center; font-size: 0.78rem;">-</span>
+              <div class="user-avatar" id="user-avatar">
+                <h3 id="user-name-initials">--</h3>
+              </div>
+              <!-- Popover Menu -->
+              <div class="avatar-popup" id="avatar-popup">
+                <form action="{% url 'logout' %}" method="POST">
+                   {% csrf_token %}
+                  <button type="submit" class="btn-logout-popup">Logout</button>
+                </form>
+              </div>
+            </div>
+          </li>
+      </ul>
+    </nav>
+    {% endwith %}
+
+    <main>
+      {% block content %}
+      
+      {% endblock content %}
+    </main>
+
+    <footer>
+      <p>&copy; {% now "Y" %} EBIL Claims Portal. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
