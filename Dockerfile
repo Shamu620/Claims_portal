@@ -16,6 +16,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 5. Copy the rest of your root directory code into the container
 COPY . /app/
 
+#THIS LINE Collects all static files into your production directory
+RUN python EBIL_CLAIMS/manage.py collectstatic --noinput
+
 # 6. Expose the port Django runs on
 EXPOSE 8000
 
