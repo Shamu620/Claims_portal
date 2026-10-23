@@ -22,7 +22,7 @@ load_dotenv(BASE_DIR / ".env")
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 SESSION_COOKIE_HTTPONLY = True    # JavaScript cannot read sessionid cookie (prevents XSS token theft)
 SESSION_COOKIE_SECURE = True      # Cookies only sent over HTTPS (production requirement)
@@ -37,8 +37,8 @@ LOGIN_URL = 'login_page'
 # For production (example configuration):
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # the Brevo SMTP login
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587)) # Enforces an integer type port mapping required by smtplib
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
@@ -46,7 +46,8 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
+# Allow local container networking, loopback addresses, and standard environments
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*']
 
 
 # Application definition
