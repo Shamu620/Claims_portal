@@ -21,11 +21,19 @@ load_dotenv(BASE_DIR / ".env")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# Allow local container networking, loopback addresses, and standard environments
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*']
+
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 SESSION_COOKIE_HTTPONLY = True    # JavaScript cannot read sessionid cookie (prevents XSS token theft)
-SESSION_COOKIE_SECURE = True      # Cookies only sent over HTTPS (production requirement)
+SESSION_COOKIE_SECURE = not DEBUG      # It evaluates to True when Debug False /Cookies only sent over HTTPS (production requirement)
 CSRF_COOKIE_HTTPONLY = False      # Must be False so JavaScript can read the CSRF token to send back in headers
 SESSION_COOKIE_SAMESITE = 'Lax'   # Protects against Cross-Site Request Forgery
 LOGIN_URL = 'login_page'
@@ -42,13 +50,6 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
-# Allow local container networking, loopback addresses, and standard environments
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*']
-
 
 # Application definition
 
